@@ -12,6 +12,7 @@ let ctx, master, noiseBuf;
 let enabled = true;
 try { enabled = localStorage.getItem(KEY) !== "0"; } catch { /* keep default */ }
 let last = 0;
+const TOUCH = window.matchMedia("(hover: none)").matches;
 // real recordings (cut from your files): mechanical keys + cardboard folder
 const BANKS = {
   key: [1, 2, 3, 4, 5, 6, 7, 8].map((n) => `assets/sounds/key-${n}.m4a`),
@@ -56,7 +57,7 @@ function audio() {
     if (!AC) return null;
     ctx = new AC();
     master = ctx.createGain();
-    master.gain.value = 0.32;
+    master.gain.value = TOUCH ? 0.22 : 0.32; // phones: a bit quieter
     master.connect(ctx.destination);
     noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
     const d = noiseBuf.getChannelData(0);
@@ -66,7 +67,16 @@ function audio() {
   loadKeys();
   return ctx;
 }
-["pointerdown", "keydown"].forEach((t) => window.addEventListener(t, () => { if (enabled) audio(); }, { once: true, capture: true }));
+// Unlock on the first real gesture. On phones the first touch is usually a scroll, which browsers
+// don't count as a gesture → keep listening (tap / key) until the audio actually runs.
+const GESTURES = ["pointerup", "touchend", "click", "keydown"];
+function unlock() {
+  if (!enabled) return;
+  const c = audio();
+  if (c && c.state === "running") GESTURES.forEach((t) => window.removeEventListener(t, unlock, true));
+  else c?.resume?.().then(() => { if (c.state === "running") GESTURES.forEach((t) => window.removeEventListener(t, unlock, true)); });
+}
+GESTURES.forEach((t) => window.addEventListener(t, unlock, { capture: true, passive: true }));
 
 const rand = (a, b) => a + Math.random() * (b - a);
 
@@ -172,6 +182,20 @@ export function playBead(index) {
   const t = c.currentTime + 0.005, f = SCALE[Math.max(0, Math.min(index, SCALE.length - 1))];
   tone(t, { freq: f, dur: 0.6, gain: 0.16, type: "sine", attack: 0.006 });        // soft bell
   tone(t, { freq: f * 2, dur: 0.35, gain: 0.05, type: "triangle", attack: 0.006 }); // shimmer
+}
+
+// sounds that come with scrolling (blocks landing, folders piling): never two closer than 0.6 s,
+// so a fast scroll stays gentle
+let lastScroll = 0;
+export function playScroll(name) {
+  const now = performance.now();
+  if (now - lastScroll < 600) return;
+  lastScroll = now;
+  play(name);
+}
+// "Shaiba Imane" as a little music-box run: the 11 bead notes, S → E
+export function playMelody() {
+  for (let i = 0; i < 11; i++) setTimeout(() => playBead(i), i * 95);
 }
 
 export function isSoundOn() { return enabled; }

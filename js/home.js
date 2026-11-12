@@ -4,7 +4,7 @@
 import "./i18n.js"; // first: translates the page before anything else runs
 import { addMarkers } from "./marker.js";
 import "./glass.js";
-import { play, playBead, initSoundToggle } from "./sound.js";
+import { play, playBead, playScroll, playMelody, initSoundToggle } from "./sound.js";
 import { introDone } from "./intro.js";
 import "./buddy.js"; // Pix, the little pixel buddy (catch-me game)
 import "./radish.js"; // Radi, the sleepy pixel radish
@@ -33,7 +33,7 @@ function markLinks() {
   const set = (sel, kind) => document.querySelectorAll(sel).forEach((el) => { el.dataset.marker = kind; });
   set(".text-click-here, .text-contact-me, .ui-site-name", "fluo");
   set(".text-work", "circle");
-  set(".contact-email a, .contact-linkedin a", "line");
+  set(".contact-email a, .contact-linkedin a", "fluo"); // same highlighter as "Contact me"
   addMarkers();
 }
 
@@ -160,10 +160,13 @@ function gsapScroll() {
 }
 
 /* ---------- objects react when the mouse passes over them ---------- */
+// desktop: objects react when the mouse passes over them; touch screens: when you tap them
+// (a bonus, never needed to go on: scrolling stays free)
 function initHover() {
-  if (!window.matchMedia("(hover: hover)").matches) return;
+  if (!window.gsap) return;
+  const evt = window.matchMedia("(hover: hover)").matches ? "mouseenter" : "click";
   const on = (sel, fn) => document.querySelectorAll(sel).forEach((el) => {
-    el.addEventListener("mouseenter", () => { if (!gsap.isTweening(el) || el.dataset.hoverBusy !== "1") fn(el); });
+    el.addEventListener(evt, () => { if (!gsap.isTweening(el) || el.dataset.hoverBusy !== "1") fn(el); });
   });
   // soft but lively movements: paper objects, not cartoons
   const wiggle = (el) => {
@@ -232,9 +235,11 @@ function mobileScroll() {
   blocks.forEach((el, i) => {
     gsap.from(el, {
       y: 50, rotation: i % 2 ? 4 : -4, autoAlpha: 0, duration: 0.7, ease: "back.out(1.4)",
-      scrollTrigger: { trigger: el, start: "top 88%", once: true, onEnter: () => play("paper") },
+      scrollTrigger: { trigger: el, start: "top 88%", once: true, onEnter: () => playScroll("paper") },
     });
   });
+  // the bead band plays its little melody once when it comes into view
+  ScrollTrigger.create({ trigger: ".g-name", start: "top 70%", once: true, onEnter: playMelody });
   gsap.from(".g-name img:not(.stamp-internship)", { scale: 0.4, autoAlpha: 0, duration: 0.45, ease: "back.out(2.5)", stagger: 0.05, scrollTrigger: { trigger: ".g-name", start: "top 80%", once: true } });
 }
 

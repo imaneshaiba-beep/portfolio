@@ -3,7 +3,7 @@ import { t } from "./i18n.js"; // first: translates the page before anything els
 import { sanityQuery, imageUrl } from "./sanity.js";
 import { addMarkers } from "./marker.js";
 import "./glass.js";
-import { play, initSoundToggle } from "./sound.js";
+import { play, playScroll, initSoundToggle } from "./sound.js";
 
 const QUERY = `*[_type == "projet"] | order(ordre asc) {
   _id, titre, description, annee, type, outils, lien,
@@ -111,7 +111,7 @@ function listMode(folders) {
     // fills as soon as it enters the screen, once (no empty folder waiting at the bottom of a phone)
     ScrollTrigger.create({
       trigger: f, start: "top 92%", once: true,
-      onEnter: () => { tl.play(); play("folder"); },
+      onEnter: () => { tl.play(); playScroll("folder"); },
     });
   });
 }
