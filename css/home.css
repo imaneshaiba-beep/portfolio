@@ -138,6 +138,7 @@ img.piece { object-fit: contain; user-select: none; -webkit-user-drag: none; }
 .paper-note-blue{--x:0%;--y:0%;--w:69.9029%;--h:100%;--r:7deg;--sh:drop-shadow(calc(3 * var(--u)) calc(8 * var(--u)) calc(8 * var(--u)) rgb(41 28 18 / 0.22))}
 .text-work{--x:20.8505%;--y:42.6305%;--w:22.3301%;--h:11.4761%;--r:7deg;--fs:48;--lh:37}
 .sticker-sparkles{--x:80.5825%;--y:45.2871%;--w:19.4175%;--h:24.9341%;--r:-6deg;--sh:drop-shadow(calc(1 * var(--u)) calc(2 * var(--u)) calc(2 * var(--u)) rgb(41 28 18 / 0.2))}
+.about-stamp, .about-clip { display: none; } /* mobile only copies, see the media query below */
 .g-about{--x:53.8082%;--y:63.4259%;--w:39.8919%;--h:19.537%;--aw:1697;--ar:1697/211}
 .label-about{--x:0%;--y:-4%;--w:3.1821%;--h:16.1137%;--fs:26}
 .rule-bio{--x:0%;--y:18.4834%;--w:100%;--h:0.7109%}
@@ -221,6 +222,18 @@ img.piece { object-fit: contain; user-select: none; -webkit-user-drag: none; }
   .g-about .bio-column-1, .g-about .bio-column-2 { font-size: 1.0625rem; line-height: 1.6; }
   .g-about .label-contact { font-size: 1.85rem; margin-top: .5rem; }
   .g-about .contact-email, .g-about .contact-linkedin { font-size: 1.0625rem; }
+  /* the paperclip clips the top-right edge of the bio sheet, the stamp is half off its bottom-right
+     corner (instead of both being in the yellow name band) */
+  .g-name .stamp-internship, .g-name .paperclip-diagonal { display: none; }
+  .g-about .about-clip {
+    display: block; position: absolute; top: calc(min(13cqw, 64px) * -0.45); right: 8%; z-index: 2;
+    width: min(13cqw, 64px); height: auto; rotate: -7.7deg; pointer-events: none;
+  }
+  .g-about .about-stamp {
+    display: block; position: absolute; right: -3cqw; bottom: -3.25rem; z-index: 1;
+    width: min(30cqw, 150px); height: auto; rotate: -17.46deg; pointer-events: none;
+  }
+  .g-about { margin-bottom: 1.5rem; } /* room for the stamp sticking out */
 
   /* backgrounds and loose decorations of the desktop strip are not used here */
   .section-2-backdrop, .paper-cream-bio, .button-strawberry-gingham, .sticker-sunflower, .sticker-sun,

@@ -38,8 +38,10 @@ function buildFolder(project, index) {
   const img = li.querySelector('[data-field="image"]');
   if (project.image?.url) {
     img.src = imageUrl(project.image, { width: 1184, height: 646 });
-    img.srcset = `${imageUrl(project.image, { width: 592, height: 323 })} 592w, ${img.src} 1184w`;
-    img.sizes = "(min-width: 52rem) 42vw, 90vw";
+    // several sizes so each screen downloads only what it shows (photo ≈ 41 % of the width on
+    // desktop, 83 % on tablets, 77 % on phones)
+    img.srcset = [400, 592, 800].map((w) => `${imageUrl(project.image, { width: w, height: Math.round(w * 646 / 1184) })} ${w}w`).join(", ") + `, ${img.src} 1184w`;
+    img.sizes = "(min-width: 52rem) 41vw, (min-width: 40rem) 83vw, 77vw";
     img.alt = project.image.alt || "";
     if (index > 0) img.loading = "lazy"; // only the first folder is visible on arrival
     else img.fetchPriority = "high";    // …and it is the largest thing painted first (LCP)

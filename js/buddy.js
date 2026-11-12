@@ -155,8 +155,11 @@ function place(i) {
   root.classList.toggle("buddy--left", s.x > 90);    // near the right edge → bubble to the left
 }
 function frame(name) { root.dataset.frame = name; }
-// every message stays 2.5 s on screen
-const readTime = () => 2500;
+// a message stays long enough to be read: 1.2 s + 38 ms per character, between 2 s and 5 s
+const readTime = (html = "") => {
+  const chars = html.replace(/<[^>]*>/g, "").length;
+  return Math.min(5000, Math.max(2000, 1200 + chars * 38));
+};
 function fitBubble() {
   if (!MOBILE) return;
   const r = root.getBoundingClientRect(), W = document.documentElement.clientWidth;
@@ -220,7 +223,15 @@ async function runAway() {
   frame("happy");
   const waddle = gsap.to(svg, { rotation: 9, duration: 0.12, repeat: -1, yoyo: true, ease: "sine.inOut", transformOrigin: "50% 100%" });
   const hop = gsap.to(body, { y: -12, duration: 0.15, repeat: -1, yoyo: true, ease: "power1.out" });
+  // he vanishes as he leaves and pops back as he lands, but stays faintly visible on the way
+  // (a little ghost crossing the page), so you can follow where he goes
+  const ghost = gsap.timeline()
+    .to(root, { autoAlpha: 0.18, duration: duration * 0.3, ease: "power2.in" }, 0)
+    .to(body, { scale: 0.6, duration: duration * 0.3, ease: "power2.in" }, 0)
+    .to(root, { autoAlpha: 1, duration: duration * 0.3, ease: "power2.out" }, duration * 0.7)
+    .to(body, { scale: 1, duration: duration * 0.3, ease: "back.out(2.5)" }, duration * 0.7);
   await Flip.from(state, { duration, ease: "power2.inOut" }).then();
+  await ghost.then();
   waddle.kill(); hop.kill();
   gsap.to(svg, { rotation: 0, duration: 0.25, ease: "back.out(3)" });
   gsap.to(body, { y: 0, duration: 0.25, ease: "bounce.out" });

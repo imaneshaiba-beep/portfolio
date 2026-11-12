@@ -41,7 +41,8 @@ function buildMap(w, h, radius) {
     }
   }
   ctx.putImageData(img, 0, 0);
-  return canvas.toDataURL();
+  // toBlob encodes the PNG off the main thread (toDataURL would block it for ~200 ms on a phone)
+  return new Promise((resolve) => canvas.toBlob((blob) => resolve(blob && URL.createObjectURL(blob)), "image/png"));
 }
 
 function channel(scale, matrix, name) {
@@ -49,19 +50,26 @@ function channel(scale, matrix, name) {
           <feColorMatrix in="d${name}" type="matrix" values="${matrix}" result="${name}"/>`;
 }
 
-function render(svg, dock) {
+let lastSize = "", mapUrl = null;
+async function render(svg, dock) {
   const w = Math.round(dock.offsetWidth), h = Math.round(dock.offsetHeight);
-  if (!w || !h) return;
+  if (!w || !h || `${w}x${h}` === lastSize) return; // same size: the map is already right
+  lastSize = `${w}x${h}`;
   const radius = parseFloat(getComputedStyle(dock).borderTopLeftRadius) || 34;
+  const url = await buildMap(w, h, radius);
+  if (!url || lastSize !== `${w}x${h}`) return; // resized again meanwhile: a newer map is coming
+  if (mapUrl) URL.revokeObjectURL(mapUrl);
+  mapUrl = url;
   svg.innerHTML = `
     <filter id="${FILTER_ID}" filterUnits="userSpaceOnUse" x="0" y="0" width="${w}" height="${h}" color-interpolation-filters="sRGB">
-      <feImage href="${buildMap(w, h, radius)}" x="0" y="0" width="${w}" height="${h}" preserveAspectRatio="none" result="map"/>
+      <feImage href="${url}" x="0" y="0" width="${w}" height="${h}" preserveAspectRatio="none" result="map"/>
       ${channel(STRENGTH, "1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0", "red")}
       ${channel(STRENGTH * 0.9, "0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0", "green")}
       ${channel(STRENGTH * 0.8, "0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0", "blue")}
       <feBlend in="red" in2="green" mode="screen" result="rg"/>
       <feBlend in="rg" in2="blue" mode="screen"/>
     </filter>`;
+  dock.classList.add("is-liquid"); // only once the filter exists (else the backdrop would be empty)
 }
 
 export function initLiquidGlass() {
@@ -78,9 +86,17 @@ export function initLiquidGlass() {
   svg.style.position = "absolute";
   document.body.append(svg);
 
-  render(svg, dock);
-  dock.classList.add("is-liquid");
-  if ("ResizeObserver" in window) new ResizeObserver(() => render(svg, dock)).observe(dock);
+  // the dock is hidden behind the intro at first: build the map when the browser is idle, not
+  // during page load. The ResizeObserver also fires once right away, so it does the first render
+  // (no second, identical render). Resizes are grouped per frame.
+  let raf = 0;
+  const schedule = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => render(svg, dock)); };
+  const start = () => {
+    if ("ResizeObserver" in window) new ResizeObserver(schedule).observe(dock);
+    else render(svg, dock);
+  };
+  if ("requestIdleCallback" in window) requestIdleCallback(start, { timeout: 2000 });
+  else setTimeout(start, 200);
 }
 
 initLiquidGlass();

@@ -8,3 +8,5 @@ studio/.sanity/
 studio/tsconfig.tsbuildinfo
 # Vercel
 .vercel/
+.vercel
+.env*

@@ -63,8 +63,10 @@ function audio() {
     const d = noiseBuf.getChannelData(0);
     for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
   }
-  if (ctx.state === "suspended") ctx.resume();
-  loadKeys();
+  // the recordings (~90 KB) are only downloaded once sound can actually play (after the first
+  // tap / click / key), never during page load
+  if (ctx.state === "running") loadKeys();
+  else if (ctx.state === "suspended") ctx.resume().then(() => { if (ctx.state === "running") loadKeys(); }, () => {});
   return ctx;
 }
 // Unlock on the first real gesture. On phones the first touch is usually a scroll, which browsers

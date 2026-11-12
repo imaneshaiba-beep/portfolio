@@ -44,6 +44,10 @@ function buildQuest(q, index) {
   if (q.apercu?.url && st !== "next") {
     // animated GIFs keep their animation (served as is); images cropped to 5:4 WebP
     img.src = q.apercu.ext === "gif" ? q.apercu.url : imageUrl(q.apercu, { width: 720, height: 576 });
+    if (q.apercu.ext !== "gif") { // the polaroid photo is 280 px wide on every screen
+      img.srcset = [360, 560].map((w) => `${imageUrl(q.apercu, { width: w, height: w * 4 / 5 })} ${w}w`).join(", ") + `, ${img.src} 720w`;
+      img.sizes = "280px";
+    }
     img.alt = q.apercu.alt || "";
     if (index > 3) img.loading = "lazy";
     if (q.apercu.lqip) li.querySelector(".polaroid__photo").style.setProperty("--lqip", `url("${q.apercu.lqip}")`);

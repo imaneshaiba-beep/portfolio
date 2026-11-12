@@ -20,7 +20,7 @@
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
   <link rel="preconnect" href="https://op2qjg9p.apicdn.sanity.io" crossorigin>
-  <link rel="preconnect" href="https://cdn.sanity.io" crossorigin>
+  <link rel="preconnect" href="https://cdn.sanity.io"> <!-- no crossorigin: images are not CORS requests -->
   <link rel="preload" href="assets/fonts/tox-typewriter.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/i-eat-crayons.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/tokens.css">
@@ -110,15 +110,15 @@
 
   <nav class="dock" aria-label="Main" data-i18n-aria="nav.main">
     <a class="dock__item" href="works.html">
-      <span class="dock__icon"><img src="assets/img/home/sticker-folder.webp" alt="" width="108" height="84"></span>
+      <span class="dock__icon"><img src="assets/img/home/sticker-folder.webp" srcset="assets/img/home/sticker-folder-m.webp 54w, assets/img/home/sticker-folder-l.webp 81w, assets/img/home/sticker-folder.webp 108w" sizes="(max-width: 40rem) 39px, 54px" alt="" width="108" height="84"></span>
       <span class="dock__label" data-i18n="dock.works">works</span>
     </a>
     <a class="dock__item" href="quests.html" aria-current="page">
-      <span class="dock__icon"><img src="assets/img/home/sticker-plant-flowers.webp" alt="" width="318" height="323"></span>
+      <span class="dock__icon"><img src="assets/img/home/sticker-plant-flowers.webp" srcset="assets/img/home/sticker-plant-flowers-xs.webp 80w, assets/img/home/sticker-plant-flowers-m.webp 159w, assets/img/home/sticker-plant-flowers-l.webp 239w, assets/img/home/sticker-plant-flowers.webp 318w" sizes="(max-width: 40rem) 39px, 54px" alt="" width="318" height="323"></span>
       <span class="dock__label" data-i18n="dock.quests">quests</span>
     </a>
     <a class="dock__item" href="index.html#profile">
-      <span class="dock__icon dock__icon--photo"><img src="assets/img/home/polaroid-photo-imane.webp" alt="" width="320" height="470"></span>
+      <span class="dock__icon dock__icon--photo"><img src="assets/img/home/polaroid-photo-imane.webp" srcset="assets/img/home/polaroid-photo-imane-xs.webp 80w, assets/img/home/polaroid-photo-imane-m.webp 160w, assets/img/home/polaroid-photo-imane-l.webp 240w, assets/img/home/polaroid-photo-imane.webp 320w" sizes="(max-width: 40rem) 104px, 144px" alt="" width="320" height="470"></span>
       <span class="dock__label" data-i18n="dock.profile">profile</span>
     </a>
   </nav>
