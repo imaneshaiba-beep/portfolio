@@ -1,0 +1,33 @@
+/* Home intro (see js/intro.js). Hidden unless <html class="has-intro"> is set in <head>. */
+.intro { display: none; }
+.has-intro body { overflow: hidden; }
+.has-intro .intro {
+  display: block; position: fixed; inset: 0; z-index: 200;
+  background: var(--color-page-bg) url("../assets/img/home/bg-bullet-journal.webp") repeat 0 0 / auto 100vh;
+}
+/* the header sits above the intro: its "Shaiba Imane" is the name being typed */
+.has-intro .ui-fixed { z-index: 210; }
+
+/* loader state of the header link: centred on the screen, same size as in the header */
+.ui-site-name.is-intro { position: fixed; inset: 0; margin: auto; width: max-content; height: max-content; }
+
+/* typewriter */
+.type-char { visibility: hidden; }
+.type-char.is-typed { visibility: visible; animation: key-strike .16s cubic-bezier(.3, 0, .2, 1); }
+/* each letter is "struck" like a typewriter key: it drops in slightly, inked a bit darker, then settles */
+.type-char { display: inline-block; white-space: pre; }
+@keyframes key-strike {
+  0% { transform: translateY(-.18em) scale(1.12); opacity: .35; }
+  60% { transform: translateY(.03em) scale(.98); opacity: 1; text-shadow: 0 0 .5px currentColor; }
+  100% { transform: none; }
+}
+.type-caret { position: relative; display: inline-block; width: 0; height: 1em; vertical-align: -.12em; }
+.type-caret::after {
+  content: ""; position: absolute; left: .06em; top: 0; bottom: 0; width: .09em;
+  background: currentColor; animation: caret-blink .9s steps(1) infinite;
+}
+@keyframes caret-blink { 50% { opacity: 0; } }
+
+/* stickers bursting under the mouse during the intro */
+.intro__bit { position: absolute; left: 0; top: 0; height: auto; pointer-events: none; user-select: none; filter: drop-shadow(1px 3px 3px rgb(41 28 18 / .25)); }
+.has-intro .intro { overflow: hidden; }

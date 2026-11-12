@@ -1,0 +1,10 @@
+# system
+.DS_Store
+*.log
+# Sanity Studio (dashboard): dependencies and build output
+studio/node_modules/
+studio/dist/
+studio/.sanity/
+studio/tsconfig.tsbuildinfo
+# Vercel
+.vercel/

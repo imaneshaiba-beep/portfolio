@@ -1,0 +1,247 @@
+/* Quests — vision board: a pinned grid-paper note in the middle, one polaroid per
+   experiment around it, a red string running from pin to pin, scrapbook stickers.
+   Header, footer, background and skeletons come from works.css. */
+
+.quests {
+  width: min(92%, 84rem);
+  margin-inline: auto;
+  padding: clamp(1.5rem, 4vh, 3rem) 0 1rem; /* the dock room is left after "Legal notice" */
+}
+
+/* ---------- board ---------- */
+.board { position: relative; }
+.board__quests,
+.board {
+  --gap-x: clamp(2.25rem, 5vw, 5rem);    /* more air between the side quests */
+  --gap-y: clamp(3.5rem, 9vh, 6.5rem);
+}
+.board__quests {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-flow: row dense;
+  gap: var(--gap-y) var(--gap-x);
+  padding: 0; list-style: none; align-items: start;
+}
+
+/* central note: sits in the middle column, spanning two rows */
+.board__note {
+  position: absolute; z-index: 3;
+  left: 50%; top: 0; translate: -50% 0;
+  width: calc((100% - 2 * var(--gap-x)) / 3 * 1.08);
+  rotate: -1.5deg;
+  padding: 2.75rem 2rem 2rem;
+  isolation: isolate;
+}
+/* the torn grid paper is a layer behind the content: the pin and the tape stay whole */
+.board__note::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(rgb(43 36 32 / .08) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(90deg, rgb(43 36 32 / .08) 1px, transparent 1px) 0 0 / 22px 22px,
+    #fbfaf6;
+  clip-path: polygon(0 1.5%, 6% 0, 13% 1.2%, 21% .2%, 30% 1.4%, 39% 0, 48% 1.1%, 57% .1%, 66% 1.3%, 75% 0, 84% 1.2%, 92% .2%, 100% 1%, 100% 100%, 0 100%);
+}
+.board__note::after { /* soft shadow under the torn paper */
+  content: ""; position: absolute; inset: 1.5% 0 0; z-index: -2;
+  box-shadow: 0 14px 34px rgb(41 28 18 / .14), 0 2px 4px rgb(41 28 18 / .08);
+}
+.board__note .pin { top: -.4rem; left: 50%; z-index: 7; width: 2.2rem; height: 3rem; }
+.board__note-tape { position: absolute; z-index: 5; top: -1rem; width: 6.5rem; height: auto; filter: drop-shadow(0 1px 1px rgb(41 28 18 / .15)); }
+.board__note-tape--left { left: -1.5rem; rotate: -32deg; }
+.board__note-tape--right { right: -1.5rem; rotate: 28deg; }
+.board__note-cardboard { position: absolute; z-index: -3; inset: auto; left: -9%; top: 6%; width: 118%; height: auto; rotate: 4deg; filter: drop-shadow(0 10px 18px rgb(41 28 18 / .18)); pointer-events: none; }
+.board__note-star { position: absolute; z-index: 6; right: -1.6rem; bottom: -1.4rem; width: 4.25rem; height: auto; rotate: 14deg; filter: drop-shadow(1px 3px 3px rgb(41 28 18 / .3)); }
+.board__note-kicker { font-size: .875rem; letter-spacing: .1em; text-transform: uppercase; color: var(--color-ink-muted); text-align: center; }
+.board__note-title { margin: .5rem 0 1rem; font-family: var(--font-handwritten); font-weight: 400; font-size: clamp(3rem, 5.5vw, 5rem); line-height: .95; text-align: center; }
+.board__note-sub { margin-top: .6rem; font-size: .875rem; letter-spacing: .08em; text-transform: uppercase; color: var(--color-ink-muted); text-align: center; }
+.board__note-text { font-family: var(--font-handwritten); font-size: clamp(1.1rem, 1.6vw, 1.4rem); line-height: 1.3; text-align: center; }
+.board__legend { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem 1rem; margin-top: 1.25rem; padding: 0; list-style: none; font-size: .875rem; }
+.board__legend li { display: inline-flex; align-items: center; gap: .35rem; }
+
+/* the middle column is reserved for the note on desktop: polaroids go left / right of it,
+   then below it on all three columns */
+.board__quests::before { content: ""; grid-column: 2; grid-row: 1 / span 2; height: var(--note-h, 30rem); }
+
+/* ---------- polaroid ---------- */
+.polaroid { --tilt: -3deg; --shift: 0rem; position: relative; z-index: 3; width: min(100%, 19rem); justify-self: center; translate: 0 var(--shift); }
+.polaroid:nth-child(3n + 1) { justify-self: start; }
+.polaroid:nth-child(3n + 3) { justify-self: end; }
+.polaroid:nth-child(4n + 1) { --tilt: -3.5deg; --shift: .5rem; }
+.polaroid:nth-child(4n + 2) { --tilt: 2.5deg; --shift: 2.5rem; }
+.polaroid:nth-child(4n + 3) { --tilt: 3.5deg; --shift: -1rem; }
+.polaroid:nth-child(4n + 4) { --tilt: -2deg; --shift: 1.5rem; }
+/* the two polaroids beside the note sit lower, on the same line */
+.polaroid:nth-child(1), .polaroid:nth-child(2) { --shift: clamp(9rem, 17vw, 15rem); }
+
+.polaroid__scrap {
+  position: absolute; z-index: 0; width: 82%; height: auto; left: 36%; top: 14%;
+  rotate: calc(var(--tilt) * -2.4); pointer-events: none;
+  filter: drop-shadow(0 6px 12px rgb(41 28 18 / .15));
+}
+.polaroid:nth-child(even) .polaroid__scrap { left: -20%; top: 22%; }
+.polaroid__tape { position: absolute; z-index: 4; width: 2.4rem; height: auto; right: -.4rem; top: 2.4rem; rotate: 34deg; pointer-events: none; }
+.polaroid:nth-child(even) .polaroid__tape { right: auto; left: -.4rem; rotate: -30deg; }
+.polaroid__card {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column;
+  padding: .75rem .75rem 1.1rem;
+  background: #fbfaf6;
+  rotate: var(--tilt); transform-origin: 50% 0%;
+  box-shadow: 0 12px 26px rgb(41 28 18 / .14), 0 2px 4px rgb(41 28 18 / .08);
+  transition: rotate .35s cubic-bezier(.2, .9, .3, 1.3), translate .35s cubic-bezier(.2, .9, .3, 1.3), box-shadow .35s;
+}
+@media (hover: hover) {
+  .polaroid__card:hover { rotate: 0deg; translate: 0 -6px; box-shadow: 0 20px 36px rgb(41 28 18 / .18), 0 2px 4px rgb(41 28 18 / .08); z-index: 4; }
+}
+
+/* wooden push pin (Shaiba's punaise-bois-clair) */
+.pin {
+  position: absolute; z-index: 5; top: -1.35rem; left: 50%; width: 1.9rem; height: 2.6rem; translate: -50% 0;
+  background: url("../assets/img/quests/pin-wood-2.webp") center / contain no-repeat;
+  filter: drop-shadow(2px 5px 3px rgb(41 28 18 / .35));
+  rotate: -8deg;
+}
+.polaroid:nth-child(odd) .pin { background-image: url("../assets/img/quests/pin-wood-1.webp"); rotate: 10deg; }
+.polaroid .pin { left: 9%; }
+.polaroid:nth-child(even) .pin { left: 91%; }
+
+/* title on a strip of tape */
+.polaroid__label {
+  position: absolute; z-index: 4; top: -.9rem; left: 50%; translate: -50% 0; rotate: calc(var(--tilt) * -1);
+  max-width: 85%; padding: .35rem 1.1rem;
+  background: rgb(232 222 196 / .9); box-shadow: 0 1px 2px rgb(41 28 18 / .12);
+  font-size: .9375rem; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.polaroid__number { position: absolute; z-index: 4; right: 1rem; top: 1.1rem; padding: .1rem .45rem; background: rgb(251 250 246 / .85); font-size: .75rem; color: var(--color-ink-muted); font-variant-numeric: tabular-nums; }
+.polaroid__photo {
+  position: relative; aspect-ratio: 5 / 4; overflow: hidden;
+  background: var(--color-ink-a08) var(--lqip, none) center / cover;
+  display: grid; place-items: center;
+}
+.polaroid__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.polaroid__soon { font-family: var(--font-handwritten); font-size: 1.4rem; color: var(--color-ink-muted); }
+.polaroid__photo:has(img[src]) .polaroid__soon { display: none; }
+
+.polaroid__caption { display: grid; gap: .3rem; padding: .85rem .35rem 0; }
+.polaroid__title { font-family: var(--font-handwritten); font-size: 1.65rem; line-height: 1.2; margin-bottom: .2rem; }   /* same marker as the Works titles */
+.polaroid__line { display: flex; gap: .55rem; align-items: flex-start; font-family: var(--font-body); font-size: .9375rem; line-height: 1.45; } /* description in Tox Typewriter */
+.polaroid__tools { padding-left: 1.85rem; font-size: .8125rem; color: var(--color-ink-muted); }
+.polaroid__link { justify-self: start; margin-left: 1.85rem; font-size: .875rem; text-decoration: none; }
+.polaroid--next .polaroid__card { opacity: .82; }
+
+/* status: a hand-drawn circle, ticked when done */
+.status-icon {
+  flex: none; position: relative; display: inline-block; width: 1.25rem; height: 1.25rem; margin-top: .1rem;
+  border: 1.6px solid var(--color-ink); border-radius: 50%;
+}
+.status-icon--done::after {
+  content: ""; position: absolute; left: .32rem; top: .12rem; width: .35rem; height: .65rem;
+  border: solid var(--color-ink); border-width: 0 2px 2px 0; rotate: 45deg;
+}
+.status-icon--in-progress { background: linear-gradient(90deg, var(--color-backdrop-yellow) 50%, transparent 50%); }
+.status-icon--next { border-style: dashed; opacity: .7; }
+
+/* ---------- red string (svg drawn over the board) ---------- */
+.board__string { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.board__string path { fill: none; stroke: #d8352a; stroke-width: 2.2; stroke-linecap: round; filter: drop-shadow(1px 2px 1px rgb(41 28 18 / .25)); }
+
+/* ---------- stickers & doodles ---------- */
+.board__deco { position: absolute; z-index: 2; height: auto; pointer-events: none; filter: drop-shadow(1px 3px 3px rgb(41 28 18 / .2)); }
+.board__deco--coffee { width: 15rem; top: -4rem; left: 22%; z-index: 0; opacity: .7; filter: none; rotate: 30deg; }
+.board__deco--clip { width: 3.5rem; top: -1.5rem; left: 2%; rotate: -18deg; z-index: 6; }
+.board__deco--charm { width: 7rem; top: -2.2rem; right: 6%; rotate: 8deg; z-index: 6; }
+.board__deco--sparkles { width: 4.5rem; top: 26%; right: -1.5%; }
+.board__deco--button-star { width: 3.75rem; top: 62%; left: 30%; rotate: -12deg; z-index: 6; }
+.board__deco--star-m { width: 3rem; top: 8%; left: 33%; rotate: 18deg; }
+.board__deco--star-b { width: 1.6rem; top: 14%; right: 30%; rotate: -10deg; }
+.board__deco--star-s { width: 1.5rem; top: 72%; right: 31%; rotate: 25deg; }
+.board__deco--flower { width: 4.5rem; top: 78%; left: -2%; rotate: 15deg; }
+
+.board__doodle { position: absolute; z-index: 2; height: auto; overflow: visible; pointer-events: none; fill: none; stroke: var(--color-brick); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.board__doodle--swirl { width: 7rem; top: 4%; left: 9%; stroke: #4c7bd9; rotate: -8deg; }
+.board__doodle--stars { width: 5.5rem; top: 2%; right: 18%; stroke: #e0a321; }
+.board__doodle--arrow { width: 8rem; top: 58%; right: 25%; rotate: 8deg; }
+.board__doodle--underline { width: 9rem; top: 86%; left: 40%; stroke: #e57ab5; }
+
+/* ---------- empty / error ---------- */
+.board__message { grid-column: 1; display: grid; gap: .6rem; justify-items: start; padding: 1.5rem; background: #fbfaf6; rotate: -2deg; box-shadow: 0 12px 26px rgb(41 28 18 / .14); }
+.board__message p:first-child { font-family: var(--font-handwritten); font-size: 1.8rem; line-height: 1.1; }
+.board__message-hint { font-size: .9375rem; color: var(--color-ink-muted); }
+
+/* skeleton */
+.polaroid--loading { display: grid; gap: .8rem; padding: .75rem .75rem 1.1rem; background: #fbfaf6; rotate: var(--tilt); }
+.polaroid--loading .skeleton--image { aspect-ratio: 5 / 4; }
+
+/* ---------- small screens: one column, note first ---------- */
+@media (max-width: 52rem) {
+  .board__note { position: relative; left: auto; translate: none; width: auto; margin-bottom: 3rem; }
+  .board__quests { grid-template-columns: 1fr; gap: 4.5rem; }
+  .board__quests::before { display: none; }
+  .polaroid { --shift: 0rem !important; }
+  .board__deco--button-star, .board__deco--sparkles, .board__deco--flower, .board__deco--star-b, .board__deco--star-s,
+  .board__doodle--arrow, .board__doodle--underline, .board__deco--coffee { display: none; }
+  .board__note-cardboard { left: -4%; width: 108%; }
+}
+
+/* the title link covers the whole polaroid → opens the detail page */
+.polaroid__open { color: inherit; text-decoration: none; }
+.polaroid__open:focus-visible { outline: none; }
+.polaroid__card:has(.polaroid__open:focus-visible) { outline: 2px solid var(--color-brick); outline-offset: 4px; }
+.polaroid__link { position: relative; z-index: 2; }       /* the external link stays clickable */
+.polaroid__card:has(.polaroid__open[href]) { cursor: pointer; }
+
+/* ---------- quest detail page ---------- */
+.quest-page { width: min(92%, 72rem); margin-inline: auto; padding: clamp(2rem, 5vh, 3.5rem) 0 clamp(10rem, 18vh, 12rem); }
+.quest-detail__hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+.quest-detail__polaroid { position: relative; margin: 0; padding: .9rem .9rem 3.25rem; background: #fbfaf6; rotate: -2.5deg; box-shadow: 0 16px 34px rgb(41 28 18 / .16), 0 2px 4px rgb(41 28 18 / .08); }
+.quest-detail__polaroid .pin { left: 18%; }
+.quest-detail__polaroid .polaroid__label { rotate: 2deg; }
+.quest-detail__intro { display: flex; flex-direction: column; gap: 1rem; }
+.quest-detail__status { display: inline-flex; align-items: center; gap: .55rem; font-size: .875rem; letter-spacing: .08em; text-transform: uppercase; color: var(--color-ink-muted); }
+.quest-detail__title { font-family: var(--font-handwritten); font-weight: 400; font-size: clamp(2.75rem, 6vw, 5rem); line-height: 1.15; }
+.quest-detail__lead { font-size: clamp(1rem, 1.6vw, 1.15rem); line-height: 1.6; max-width: 34rem; }
+/* "What I tested": right under the description, in the same column */
+.quest-detail__content { font-size: 1rem; line-height: 1.65; }
+.quest-detail__content > * + * { margin-top: .6rem; }
+.quest-detail__content h3 {
+  display: inline-block; margin-top: .4rem; font-family: var(--font-handwritten); font-weight: 400; font-size: 1.75rem; line-height: 1.15;
+  background: linear-gradient(100deg, transparent .08em, var(--color-highlight) .2em, var(--color-highlight) calc(100% - .15em), transparent calc(100% - .03em)) no-repeat 0 72% / 100% .62em;
+}
+.quest-detail__content blockquote { padding: 1rem 1.25rem; background: #fbfaf6; border-left: 3px solid var(--color-brick); rotate: -.5deg; }
+.quest-detail__content code { padding: .05em .35em; background: var(--color-ink-a08); border-radius: .25rem; font-size: .92em; }
+.quest-detail__content ul, .quest-detail__content ol { padding-left: 1.3rem; }
+.quest-detail__content ul { list-style: disc; }
+.quest-detail__gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: 2.5rem 2rem; margin-top: clamp(3rem, 7vh, 5rem); padding: 0; list-style: none; }
+.quest-detail__shot figure { margin: 0; padding: .75rem .75rem 1rem; background: #fbfaf6; rotate: var(--tilt, 0deg); box-shadow: 0 12px 26px rgb(41 28 18 / .14); }
+.quest-detail__shot img { width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover; }
+.quest-detail__shot figcaption { padding-top: .6rem; font-family: var(--font-handwritten); font-size: 1.15rem; }
+@media (max-width: 52rem) {
+  .quest-detail__hero { grid-template-columns: 1fr; }
+  .quest-detail__polaroid { width: min(100%, 26rem); justify-self: center; }
+}
+
+/* detail page: the loading message is visible (not only for screen readers) */
+.quest-page .works__status:not(:empty) {
+  position: static; width: auto; height: auto; overflow: visible; clip: auto;
+  margin: 3rem 0; font-family: var(--font-handwritten); font-size: 1.6rem; color: var(--color-ink-muted);
+}
+
+/* the tape label moves away from the pin so the title is never hidden */
+.polaroid .polaroid__label { left: 57%; max-width: 74%; }
+.polaroid:nth-child(even) .polaroid__label { left: 43%; }
+/* phones: room under the tapes at the top; the dock room is left by "Legal notice" at the end */
+@media (max-width: 52rem), (orientation: portrait) { .quests { padding-top: 6.75rem; padding-bottom: 1rem; } }
+
+/* "View experiment": same as "View live site" on Works — thin black underline (it reads as a link),
+   orange highlighter on hover (auto-played on touch screens, see js/marker.js) */
+.polaroid__link, .quest-detail__meta a[data-field="lien"] {
+  text-decoration: underline; text-decoration-color: var(--color-ink);
+  text-decoration-thickness: 1px; text-underline-offset: .22em;
+}
+.polaroid__link { position: relative; z-index: 5; display: inline-block; width: fit-content; }
+/* phones: a comfortable tap target (≥ 44 px) and slightly bigger text */
+@media (hover: none), (max-width: 40rem) {
+  .polaroid__link { display: inline-flex; align-items: center; min-height: 2.75rem; padding: .35rem .15rem; font-size: .9375rem; }
+  .quest-detail__meta a[data-field="lien"] { display: inline-flex; align-items: center; min-height: 2.75rem; font-size: .9375rem; }
+}

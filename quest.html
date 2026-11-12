@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    /* language: saved choice, else the browser language; French pages stay hidden until translated (max 1.5 s) */
+    try {
+      var q = (location.search.match(/[?&]lang=(fr|en)/) || [])[1]; var l = q || localStorage.getItem("lang") || ((navigator.language || "").toLowerCase().indexOf("fr") === 0 ? "fr" : "en");
+      document.documentElement.lang = l;
+      if (l === "fr") { document.documentElement.classList.add("i18n-pending"); setTimeout(function () { document.documentElement.classList.remove("i18n-pending"); }, 1500); }
+    } catch (e) {}
+  </script>
+  <script type="module" src="js/i18n.js"></script> <!-- first: translates before GSAP is even downloaded -->
+  <title data-i18n="title.quest">Side quest — Shaiba Imane</title>
+  <meta name="description" content="A side quest from Shaiba Imane's lab: what was tested, how, and what was learned.">
+  <meta name="theme-color" content="#f6f1e7">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="assets/icons/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preconnect" href="https://op2qjg9p.apicdn.sanity.io" crossorigin>
+  <link rel="preconnect" href="https://cdn.sanity.io" crossorigin>
+  <link rel="preload" href="assets/fonts/tox-typewriter.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/i-eat-crayons.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/works.css">
+  <link rel="stylesheet" href="css/quests.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script type="module" src="js/quest.js"></script>
+</head>
+<body class="page-works page-quests">
+  <a class="skip-link" href="#quest-title" data-i18n="skip.content">Skip to content</a>
+
+  <header class="page-header">
+    <a class="ui-site-name notranslate" translate="no" href="index.html" data-marker="fluo">Shaiba Imane</a>
+    <a class="page-header__back back-link" href="quests.html">
+      <svg class="back-arrow" viewBox="0 0 120 60" aria-hidden="true">
+        <path class="back-arrow__line" pathLength="1" d="M112 58C110 40 102 22 84 20C70 19 63 30 67 41C71 51 85 49 87 37C89 23 72 18 52 19L8 21"/>
+        <path class="back-arrow__head" pathLength="1" d="M23 8L7 21L23 32"/>
+      </svg>
+      <span data-marker="line" data-i18n="quest.all">All quests</span>
+    </a>
+  </header>
+
+  <main class="quest-page" data-quest aria-busy="true">
+    <p class="works__status" role="status" data-status data-i18n="quest.loading">Loading the quest…</p>
+
+    <article class="quest-detail" data-detail hidden>
+      <div class="quest-detail__hero">
+        <figure class="quest-detail__polaroid">
+          <span class="pin" aria-hidden="true"></span>
+          <span class="polaroid__label" data-field="numero"></span>
+          <div class="polaroid__photo"><img data-field="apercu" alt="" width="1200" height="960" decoding="async"><span class="polaroid__soon" data-i18n="quests.soon">Coming soon</span></div>
+        </figure>
+
+        <div class="quest-detail__intro">
+          <p class="quest-detail__status"><span class="status-icon" data-field="statut-icon" aria-hidden="true"></span><span data-field="statut"></span></p>
+          <h1 class="quest-detail__title" id="quest-title"><span class="folder__title-mark" data-field="titre"></span></h1>
+          <p class="quest-detail__lead" data-field="description"></p>
+          <dl class="folder__meta quest-detail__meta">
+            <div><dt data-i18n="quest.status">Status</dt><dd data-field="statut-meta"></dd></div>
+            <div><dt data-i18n="quest.tools">Tools</dt><dd data-field="outils"></dd></div>
+            <div data-row="lien"><dt data-i18n="quest.link">Link</dt><dd><a data-field="lien" target="_blank" rel="noopener" data-marker="fluo" data-i18n="quests.view">View experiment →</a></dd></div>
+          </dl>
+        </div>
+      </div>
+
+
+      <ul class="quest-detail__gallery" data-field="galerie" aria-label="Gallery" data-i18n-aria="quest.gallery"></ul>
+    </article>
+  </main>
+
+  <footer class="page-footer">
+    <p class="tape-links">
+      <a class="tape-link tape-link--linkedin" href="https://www.linkedin.com/in/imane-shaiba/" target="_blank" rel="noopener"><span class="tape-link__text">LinkedIn</span></a>
+      <a class="tape-link tape-link--contact" href="mailto:imane.shaiba@outlook.com"><span class="tape-link__text">Contact</span></a>
+    </p>
+  </footer>
+  <a class="ui-legal-corner" href="legal.html" data-marker="fluo" data-i18n="legal">Legal notice</a>
+
+  <button class="ui-sound" type="button" data-sound-toggle aria-pressed="true">
+    <svg class="ui-sound__icon" viewBox="0 0 16 16" aria-hidden="true"><path class="ui-sound__body" d="M2 6h3l4-3v10l-4-3H2z"/><path class="ui-sound__waves" d="M11 5.5c1 .7 1.5 1.6 1.5 2.5s-.5 1.8-1.5 2.5M12.8 3.5C14.3 4.6 15 6.2 15 8s-.7 3.4-2.2 4.5"/><path class="ui-sound__off" d="M11 6l4 4M15 6l-4 4"/></svg>
+    <span data-sound-label>sound on</span>
+  </button>
+
+  <nav class="dock" aria-label="Main" data-i18n-aria="nav.main">
+    <a class="dock__item" href="works.html">
+      <span class="dock__icon"><img src="assets/img/home/sticker-folder.webp" alt="" width="108" height="84"></span>
+      <span class="dock__label" data-i18n="dock.works">works</span>
+    </a>
+    <a class="dock__item" href="quests.html" aria-current="page">
+      <span class="dock__icon"><img src="assets/img/home/sticker-plant-flowers.webp" alt="" width="318" height="323"></span>
+      <span class="dock__label" data-i18n="dock.quests">quests</span>
+    </a>
+    <a class="dock__item" href="index.html#profile">
+      <span class="dock__icon dock__icon--photo"><img src="assets/img/home/polaroid-photo-imane.webp" alt="" width="320" height="470"></span>
+      <span class="dock__label" data-i18n="dock.profile">profile</span>
+    </a>
+  </nav>
+</body>
+</html>

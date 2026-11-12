@@ -1,0 +1,182 @@
+/* Works — project folders that stack up like file dividers as you scroll
+   (Figma frame "Work", component "Card-project"; stacking inspired by a filing cabinet). */
+
+.page-works {
+  background: var(--color-page-bg) url("../assets/img/home/bg-bullet-journal.webp") repeat 0 0 / auto 67.5rem; /* tile = 1080px high, as in Figma */
+}
+
+/* ---------- header / footer ---------- */
+.page-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: clamp(1rem, 3.33vh, 2.25rem) var(--edge) 0;
+}
+.page-header .ui-site-name { position: static; font-size: 1.125rem; }
+.page-header__back { font-size: 1rem; text-decoration: none; }
+
+.page-footer {
+  display: flex; flex-direction: column; align-items: flex-end; gap: var(--spacing-contact-stack);
+  padding: 0 var(--edge) clamp(1.5rem, 3vh, 2rem);
+  font-size: 1rem; line-height: 1;
+}
+.page-footer a { text-decoration: none; }
+
+/* ---------- layout ---------- */
+.works {
+  width: min(92%, 90rem);
+  margin-inline: auto;
+  padding: clamp(.75rem, 2.2vh, 1.75rem) 0 1rem; /* the dock room is left after "Legal notice" */
+}
+.works__head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: clamp(.6rem, 1.8vh, 1.25rem); }
+.works__title { font-size: 2rem; font-weight: 400; line-height: 1.15; }
+.works__count, .works__progress { font-variant-numeric: tabular-nums; }
+.works__progress { font-size: 1rem; color: var(--color-ink-muted); letter-spacing: .06em; }
+.works__progress:empty { display: none; }
+
+/* list mode (default, small screens, reduced motion) */
+.works__stack { display: grid; gap: 3rem; padding: 0; list-style: none; }
+
+/* stack mode: the whole scene is one screen high and gets pinned by js/works.js */
+.is-stacked .works-scene { height: 100vh; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+.is-stacked .works { flex: 1; min-height: 0; display: flex; flex-direction: column; padding-bottom: 0; }
+.is-stacked .works__stack {
+  --step: clamp(2.6rem, 5.5vh, 3.75rem);                 /* each folder sits a bit lower: tabs stay visible */
+  --dock-reserve: clamp(.75rem, 2vh, 1.5rem);           /* the pile goes down behind the glass dock */
+  position: relative; display: block; flex: 1; min-height: 0; margin-bottom: var(--dock-reserve);
+}
+.is-stacked .folder {
+  position: absolute; left: 0; right: 0;
+  top: calc(var(--i, 0) * var(--step));
+  height: calc(100% - (var(--n, 1) - 1) * var(--step));
+  z-index: calc(1 + var(--i, 0));
+}
+.is-stacked .folder__inner { display: flex; flex-direction: column; height: 100%; }
+.is-stacked .folder__body { flex: 1; min-height: 0; overflow: hidden; container-type: size; }
+/* the photo never grows taller than the folder: its width follows the available height */
+.is-stacked .folder__photo { justify-self: center; width: min(100%, calc((100cqh - 2 * clamp(1.5rem, min(3.5vw, 4.5vh), 3.25rem) - 2rem) * 592 / 323)); }
+.is-stacked .folder--loading { position: relative; height: auto; }
+
+.works__status { margin-top: 1.5rem; }
+.works__status:empty { display: none; }
+.works__status:not([data-error]) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.works__error {
+  display: grid; gap: .6rem; justify-items: start;
+  padding: 2rem; border-radius: 1.25rem; background: var(--color-paper-cream);
+  box-shadow: 0 10px 30px rgb(41 28 18 / .10);
+}
+.works__error p:first-child { font-family: var(--font-handwritten); font-size: 2rem; }
+.works__error-hint { font-size: .9375rem; color: var(--color-ink-muted); max-width: 40rem; }
+.works__retry {
+  margin-left: .75rem; padding: .35rem .9rem; border: 1px solid var(--color-ink); border-radius: 999px;
+  background: none; font: inherit; color: inherit; cursor: pointer;
+}
+
+/* ---------- folder ---------- */
+.folder {
+  --folder-color: var(--color-paper-cream);
+  --tab-offset: calc(4% + var(--i, 0) * 21%);     /* tabs step to the right, like dividers */
+  position: relative;
+  transform-origin: 50% 0%;
+  filter: drop-shadow(0 -6px 18px rgb(41 28 18 / .08)) drop-shadow(0 10px 30px rgb(41 28 18 / .10));
+}
+.folder:nth-child(3n + 2) { --folder-color: var(--color-folder-kraft); }
+.folder:nth-child(3n + 3) { --folder-color: var(--color-backdrop-yellow); }
+.folder:nth-child(4n + 4) { --tab-offset: 10%; }
+
+.folder__tab {
+  position: relative; z-index: 1;
+  display: block; width: fit-content; max-width: 60%;
+  margin-left: var(--tab-offset); margin-bottom: -1px;
+  padding: .7rem 1.75rem .6rem;
+  border-radius: 1rem 1rem 0 0;
+  background: var(--folder-color);
+}
+.folder__tab-title { display: block; font-size: 1.375rem; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.folder__body {
+  position: relative;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  min-height: min(60vh, 38rem);
+  padding: clamp(1.5rem, min(3.5vw, 4.5vh), 3.25rem);
+  border-radius: 1.25rem;
+  background: var(--folder-color);
+}
+.folder__tab, .folder__body { isolation: isolate; }
+.folder__tab::after, .folder__body::after { /* paper grain */
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .33 0 0 0 0 .24 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .4; mix-blend-mode: multiply;
+}
+
+.folder__text { display: flex; flex-direction: column; gap: clamp(.6rem, 1.8vh, 1.1rem); max-width: 34rem; }
+.folder__kicker { font-size: .875rem; letter-spacing: .08em; text-transform: uppercase; color: var(--color-ink-muted); }
+.folder__title { font-family: var(--font-handwritten); font-weight: 400; font-size: clamp(2.25rem, min(5.2vw, 7vh), 4.75rem); line-height: 1.12; }
+.folder__title-mark {                     /* highlighter swiped over the letters, line by line */
+  background: linear-gradient(100deg, transparent .08em, var(--color-highlight) .2em, var(--color-highlight) calc(100% - .15em), transparent calc(100% - .03em)) no-repeat 0 72% / var(--mark, 100%) .62em;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  padding-inline: .1em;
+}
+.folder__description { font-size: clamp(.9375rem, 1.9vh, 1.0625rem); line-height: 1.55; }
+
+.folder__meta { font-size: .875rem; line-height: 1.25rem; }
+.folder__meta > div { display: flex; justify-content: space-between; gap: 1rem; padding-block: clamp(.3rem, .8vh, .5rem); border-top: 1px solid var(--color-ink-a25); }
+.folder__meta dt { color: var(--color-ink-muted); }
+.folder__meta dd { margin: 0; text-align: right; }
+.folder__meta a { text-decoration: none; }
+
+/* photo: a print taped on the folder, slightly tilted */
+.folder__photo { position: relative; margin: 0; rotate: 2.5deg; }
+.folder:nth-child(even) .folder__photo { rotate: -2.5deg; }
+.folder__photo-frame {
+  aspect-ratio: 592 / 323;
+  border: .5rem solid var(--color-photo-border);
+  background: rgb(43 36 32 / .08) var(--lqip, none) center / cover;
+  box-shadow: 0 12px 28px rgb(41 28 18 / .18), 0 2px 4px rgb(41 28 18 / .1);
+  overflow: hidden;
+}
+.folder__photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+.folder__deco { position: absolute; z-index: 2; pointer-events: none; height: auto; }
+.folder__deco--tape { width: clamp(6rem, 11vw, 9rem); top: -1.4rem; left: 50%; translate: -50% 0; rotate: -4deg; }
+.folder__deco--clip { width: clamp(3.5rem, 6vw, 5rem); top: -2rem; right: 12%; rotate: 8deg; }
+
+.folder__number {
+  position: absolute; top: clamp(1rem, 2.5vw, 2rem); right: clamp(1.25rem, 3vw, 2.75rem);
+  font-size: clamp(3rem, 7vw, 6rem); line-height: 1; color: var(--color-ink-a12);
+  font-variant-numeric: tabular-nums; pointer-events: none;
+}
+
+@media (max-width: 52rem) {
+  .folder__body { grid-template-columns: 1fr; min-height: 0; }
+  .folder__photo { order: -1; }
+}
+
+/* ---------- loading skeleton ---------- */
+.skeleton { display: block; border-radius: 999px; background: var(--color-ink-a12); animation: skeleton-pulse 1.4s ease-in-out infinite alternate; }
+.skeleton--tab { width: 9.4rem; height: 1rem; margin-block: .35rem; }
+.skeleton--kicker { width: 30%; height: .7rem; }
+.skeleton--title { width: 70%; height: 3rem; border-radius: .75rem; }
+.skeleton--line { height: .8rem; }
+.skeleton--short { width: 70%; }
+.skeleton--meta { height: .625rem; }
+.skeleton--image { aspect-ratio: 592 / 323; border-radius: 0; background: var(--color-ink-a08); }
+@keyframes skeleton-pulse { from { opacity: .55; } to { opacity: 1; } }
+
+/* small screens: the footer tapes are centred; room for the dock is left by "Legal notice" below */
+@media (max-width: 40rem) {
+  .page-footer { align-items: center; }
+}
+
+/* footer (tapes on the quest detail and legal pages): "Legal notice" follows right after */
+.page-works .page-footer { padding-bottom: 0; }
+.page-works .works__progress { margin-right: 10rem; } /* keep "01 / 02" clear of the Contact tape */
+@media (max-width: 40rem) { .page-works .works__progress { margin-right: 0; } }
+
+/* "View live site": a thin black underline so it reads as a link at a glance
+   (the orange highlighter still sweeps in on hover) */
+.folder__meta a[data-field="lien"] {
+  text-decoration: underline; text-decoration-color: var(--color-ink);
+  text-decoration-thickness: 1px; text-underline-offset: .22em;
+}
+/* phones: the dock room is left by "Legal notice" at the very end, not by the page itself */
+@media (max-width: 52rem), (orientation: portrait) { .works { padding-bottom: 1rem; } }

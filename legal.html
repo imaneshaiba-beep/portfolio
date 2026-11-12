@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    /* language: saved choice, else the browser language; French pages stay hidden until translated (max 1.5 s) */
+    try {
+      var q = (location.search.match(/[?&]lang=(fr|en)/) || [])[1]; var l = q || localStorage.getItem("lang") || ((navigator.language || "").toLowerCase().indexOf("fr") === 0 ? "fr" : "en");
+      document.documentElement.lang = l;
+      if (l === "fr") { document.documentElement.classList.add("i18n-pending"); setTimeout(function () { document.documentElement.classList.remove("i18n-pending"); }, 1500); }
+    } catch (e) {}
+  </script>
+  <script type="module" src="js/i18n.js"></script> <!-- first: translates before GSAP is even downloaded -->
+  <title data-i18n="title.legal">Legal notice, privacy &amp; credits — Shaiba Imane</title>
+  <meta name="description" content="Legal notice, privacy policy, accessibility statement and credits of Shaiba Imane's portfolio.">
+  <meta name="theme-color" content="#f6f1e7">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="assets/icons/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preload" href="assets/fonts/tox-typewriter.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/i-eat-crayons.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/works.css">
+  <link rel="stylesheet" href="css/legal.css">
+  <script type="module" src="js/legal.js"></script>
+</head>
+<body class="page-works page-legal">
+  <a class="skip-link" href="#legal" data-i18n="skip.content">Skip to content</a>
+
+  <header class="page-header">
+    <a class="ui-site-name notranslate" translate="no" href="index.html" data-marker="fluo">Shaiba Imane</a>
+    <a class="page-header__back back-link" href="index.html">
+      <svg class="back-arrow" viewBox="0 0 120 60" aria-hidden="true">
+        <path class="back-arrow__line" pathLength="1" d="M112 58C110 40 102 22 84 20C70 19 63 30 67 41C71 51 85 49 87 37C89 23 72 18 52 19L8 21"/>
+        <path class="back-arrow__head" pathLength="1" d="M23 8L7 21L23 32"/>
+      </svg>
+      <span data-marker="line" data-i18n="home">Home</span>
+    </a>
+  </header>
+
+  <main class="legal" id="legal">
+    <div data-lang="en" lang="en">
+    <h1 class="legal__title" id="legal-title">Legal notice, privacy &amp; credits</h1>
+    <p class="legal__updated">Last updated: 12 November 2026</p>
+
+    <nav class="legal__toc" aria-label="On this page">
+      <ol>
+        <li><a href="#notice" data-marker="line">Legal notice</a></li>
+        <li><a href="#privacy" data-marker="line">Privacy</a></li>
+        <li><a href="#accessibility" data-marker="line">Accessibility</a></li>
+        <li><a href="#credits" data-marker="line">Credits</a></li>
+        <li><a href="#ip" data-marker="line">Intellectual property</a></li>
+      </ol>
+    </nav>
+
+    <section class="legal__sheet" id="notice" aria-labelledby="notice-title">
+      <h2 id="notice-title">1. Legal notice</h2>
+      <dl class="legal__facts">
+        <div><dt>Publisher</dt><dd>Shaiba Imane — student in web development, personal non-commercial portfolio</dd></div>
+        <div><dt>Contact</dt><dd><a href="mailto:imane.shaiba@outlook.com">imane.shaiba@outlook.com</a></dd></div>
+        <div><dt>Address</dt><dd class="todo">[to complete — city and country, or postal address if required]</dd></div>
+        <div><dt>Publication director</dt><dd>Shaiba Imane</dd></div>
+        <div><dt>Hosting</dt><dd>Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, United States — <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a></dd></div>
+        <div><dt>Content management</dt><dd>Sanity.io (headless CMS) — <a href="https://www.sanity.io" target="_blank" rel="noopener">sanity.io</a></dd></div>
+      </dl>
+    </section>
+
+    <section class="legal__sheet" id="privacy" aria-labelledby="privacy-title">
+      <h2 id="privacy-title">2. Privacy (GDPR)</h2>
+      <p><strong>In short: this website does not collect, sell or track your personal data.</strong> There is no contact form, no account, no analytics, no advertising and no cookies.</p>
+
+      <h3>Data stored in your browser</h3>
+      <p>A few small preferences are saved in your own browser (local storage), only to make the site work as you set it. They never leave your device and you can delete them by clearing your browser data.</p>
+      <div class="legal__table-wrap">
+        <table class="legal__table">
+          <thead><tr><th scope="col">Name</th><th scope="col">Purpose</th><th scope="col">Duration</th></tr></thead>
+          <tbody>
+            <tr><td><code>sound-on</code></td><td>Remembers if you switched the sounds on or off</td><td>Until you clear it</td></tr>
+            <tr><td><code>lang</code></td><td>Remembers the language you chose (FR / EN)</td><td>Until you clear it</td></tr>
+            <tr><td><code>home-todo-v1</code></td><td>Remembers the boxes you ticked in the home to-do list</td><td>Until you clear it</td></tr>
+            <tr><td><code>pix-colour</code></td><td>Remembers the colour of Pix, the little pixel folder, so it changes at your next visit</td><td>Until you clear it</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>These are strictly functional, so no consent banner is needed.</p>
+
+      <h3>Third-party services</h3>
+      <p>To display the site, your browser connects to the following services, which technically receive your IP address:</p>
+      <ul>
+        <li><strong>Sanity.io</strong> (cdn.sanity.io, apicdn.sanity.io) — delivers the projects, quests and their images.</li>
+        <li><strong>cdnjs / Cloudflare</strong> (cdnjs.cloudflare.com) — delivers the GSAP animation library and its ScrollTrigger and Flip plugins.</li>
+        <li><strong>Vercel</strong> (hosting) — the server of the website may keep technical logs (IP address, date, page) for security.</li>
+      </ul>
+      <p>Links to LinkedIn or your e-mail app only open them when you click; nothing is loaded from LinkedIn beforehand.</p>
+
+      <h3>Your rights</h3>
+      <p>You can ask to access, correct or delete any data about you, or object to its processing, by writing to <a href="mailto:imane.shaiba@outlook.com">imane.shaiba@outlook.com</a>. You can also lodge a complaint with the Belgian Data Protection Authority (<a href="https://www.dataprotectionauthority.be" target="_blank" rel="noopener">dataprotectionauthority.be</a>).</p>
+    </section>
+
+    <section class="legal__sheet" id="accessibility" aria-labelledby="a11y-title">
+      <h2 id="a11y-title">3. Accessibility</h2>
+      <p>This portfolio aims to follow the <abbr title="Web Content Accessibility Guidelines">WCAG</abbr> 2.1 level AA guidelines.</p>
+      <h3>What is in place</h3>
+      <ul>
+        <li>Keyboard navigation with visible focus, skip links, landmarks and headings.</li>
+        <li>Text alternatives for meaningful images; decorative images are hidden from screen readers.</li>
+        <li>Text contrast of at least 4.5:1.</li>
+        <li>Animations are reduced when your system asks for less motion (the welcome animation is then skipped); sounds only play after you interact and can be switched off.</li>
+        <li>The site is available in French and English (switch at the bottom left).</li>
+        <li>The little game on the home page (Pix) can be played with the keyboard and its messages are read by screen readers.</li>
+        <li>Responsive layout from small phones to large screens; the horizontal scrapbook becomes a vertical page on phones.</li>
+      </ul>
+      <h3>Known limitations</h3>
+      <ul>
+        <li>Some short texts use a handwritten font that can be harder to read.</li>
+        <li>Project and quest texts come from the content management system and are written in one language.</li>
+        <li>Project and quest images rely on the alternative text written in the content management system.</li>
+      </ul>
+      <p>If something is hard to use, please tell me: <a href="mailto:imane.shaiba@outlook.com">imane.shaiba@outlook.com</a>.</p>
+    </section>
+
+    <section class="legal__sheet" id="credits" aria-labelledby="credits-title">
+      <h2 id="credits-title">4. Credits</h2>
+      <dl class="legal__facts">
+        <div><dt>Design &amp; development</dt><dd>Shaiba Imane (Figma, HTML, CSS, JavaScript)</dd></div>
+        <div><dt>Typefaces</dt><dd>Tox Typewriter © junkohanhero · i eat crayons © FontPanda <span class="todo">[web licence to confirm]</span></dd></div>
+        <div><dt>Animation</dt><dd>GSAP by GreenSock, with ScrollTrigger and Flip — <a href="https://gsap.com" target="_blank" rel="noopener">gsap.com</a></dd></div>
+        <div><dt>Content</dt><dd>Sanity.io</dd></div>
+        <div><dt>Photos</dt><dd>Portraits and project screenshots by Shaiba Imane</dd></div>
+        <div><dt>Pixel characters</dt><dd>Pix (the folder) and Radi (the radish), made for this website from the scrapbook’s pixel folder sticker</dd></div>
+        <div><dt>Scrapbook elements</dt><dd class="todo">[to complete — source and licence of the paper textures, buttons, stickers, tape and keyboard images]</dd></div>
+        <div><dt>Sounds</dt><dd>Mechanical keyboard and folder recordings <span class="todo">[source and licence to complete]</span>; other sounds generated in the browser</dd></div>
+      </dl>
+    </section>
+
+    <section class="legal__sheet" id="ip" aria-labelledby="ip-title">
+      <h2 id="ip-title">5. Intellectual property</h2>
+      <p>The design, texts, photos and code of this website belong to Shaiba Imane, unless stated otherwise in the credits. They may not be reused without permission. The projects shown remain the property of their respective owners and clients.</p>
+    </section>
+    </div>
+    <div data-lang="fr" lang="fr" hidden>
+    <h1 class="legal__title" id="legal-title-fr">Mentions légales, vie privée &amp; crédits</h1>
+    <p class="legal__updated">Dernière mise à jour : 12 novembre 2026</p>
+
+    <nav class="legal__toc" aria-label="Sur cette page">
+      <ol>
+        <li><a href="#notice-fr" data-marker="line">Mentions légales</a></li>
+        <li><a href="#privacy-fr" data-marker="line">Vie privée</a></li>
+        <li><a href="#accessibility-fr" data-marker="line">Accessibilité</a></li>
+        <li><a href="#credits-fr" data-marker="line">Crédits</a></li>
+        <li><a href="#ip-fr" data-marker="line">Propriété intellectuelle</a></li>
+      </ol>
+    </nav>
+
+    <section class="legal__sheet" id="notice-fr" aria-labelledby="notice-title-fr">
+      <h2 id="notice-title-fr">1. Mentions légales</h2>
+      <dl class="legal__facts">
+        <div><dt>Éditrice</dt><dd>Shaiba Imane — étudiante en développement web, portfolio personnel à but non commercial</dd></div>
+        <div><dt>Contact</dt><dd><a href="mailto:imane.shaiba@outlook.com">imane.shaiba@outlook.com</a></dd></div>
+        <div><dt>Adresse</dt><dd class="todo">[à compléter — ville et pays, ou adresse postale si nécessaire]</dd></div>
+        <div><dt>Responsable de la publication</dt><dd>Shaiba Imane</dd></div>
+        <div><dt>Hébergement</dt><dd>Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis — <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a></dd></div>
+        <div><dt>Gestion du contenu</dt><dd>Sanity.io (CMS headless) — <a href="https://www.sanity.io" target="_blank" rel="noopener">sanity.io</a></dd></div>
+      </dl>
+    </section>
+
+    <section class="legal__sheet" id="privacy-fr" aria-labelledby="privacy-title-fr">
+      <h2 id="privacy-title-fr">2. Vie privée (RGPD)</h2>
+      <p><strong>En bref : ce site ne collecte, ne vend et ne suit aucune donnée personnelle.</strong> Il n’y a ni formulaire de contact, ni compte, ni outil de statistiques, ni publicité, ni cookies.</p>
+
+      <h3>Données enregistrées dans votre navigateur</h3>
+      <p>Quelques petites préférences sont enregistrées dans votre propre navigateur (stockage local), uniquement pour que le site fonctionne comme vous l’avez réglé. Elles ne quittent jamais votre appareil et vous pouvez les supprimer en effaçant les données de votre navigateur.</p>
+      <div class="legal__table-wrap">
+        <table class="legal__table">
+          <thead><tr><th scope="col">Nom</th><th scope="col">Rôle</th><th scope="col">Durée</th></tr></thead>
+          <tbody>
+            <tr><td><code>sound-on</code></td><td>Retient si vous avez activé ou coupé les sons</td><td>Jusqu’à ce que vous l’effaciez</td></tr>
+            <tr><td><code>lang</code></td><td>Retient la langue choisie (FR / EN)</td><td>Jusqu’à ce que vous l’effaciez</td></tr>
+            <tr><td><code>home-todo-v1</code></td><td>Retient les cases cochées dans la to-do list de l’accueil</td><td>Jusqu’à ce que vous l’effaciez</td></tr>
+            <tr><td><code>pix-colour</code></td><td>Retient la couleur de Pix, le petit dossier pixel, pour qu’elle change à votre prochaine visite</td><td>Jusqu’à ce que vous l’effaciez</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Ces données sont strictement fonctionnelles : aucun bandeau de consentement n’est donc nécessaire.</p>
+
+      <h3>Services tiers</h3>
+      <p>Pour afficher le site, votre navigateur se connecte aux services suivants, qui reçoivent techniquement votre adresse IP :</p>
+      <ul>
+        <li><strong>Sanity.io</strong> (cdn.sanity.io, apicdn.sanity.io) — fournit les projets, les quêtes et leurs images.</li>
+        <li><strong>cdnjs / Cloudflare</strong> (cdnjs.cloudflare.com) — fournit la bibliothèque d’animation GSAP et ses extensions ScrollTrigger et Flip.</li>
+        <li><strong>Vercel</strong> (hébergement) — le serveur du site peut conserver des journaux techniques (adresse IP, date, page) pour des raisons de sécurité.</li>
+      </ul>
+      <p>Les liens vers LinkedIn ou votre messagerie ne s’ouvrent que lorsque vous cliquez dessus ; rien n’est chargé depuis LinkedIn au préalable.</p>
+
+      <h3>Vos droits</h3>
+      <p>Vous pouvez demander l’accès, la rectification ou la suppression des données vous concernant, ou vous opposer à leur traitement, en écrivant à <a href="mailto:imane.shaiba@outlook.com">imane.shaiba@outlook.com</a>. Vous pouvez aussi introduire une plainte auprès de l’Autorité de protection des données belge (<a href="https://www.autoriteprotectiondonnees.be" target="_blank" rel="noopener">autoriteprotectiondonnees.be</a>).</p>
+    </section>
+
+    <section class="legal__sheet" id="accessibility-fr" aria-labelledby="a11y-title-fr">
+      <h2 id="a11y-title-fr">3. Accessibilité</h2>
+      <p>Ce portfolio vise à respecter les règles <abbr title="Web Content Accessibility Guidelines">WCAG</abbr> 2.1, niveau AA.</p>
+      <h3>Ce qui est en place</h3>
+      <ul>
+        <li>Navigation au clavier avec focus visible, liens d’évitement, régions et titres structurés.</li>
+        <li>Alternatives textuelles pour les images porteuses de sens ; les images décoratives sont masquées aux lecteurs d’écran.</li>
+        <li>Contraste du texte d’au moins 4,5:1.</li>
+        <li>Les animations sont réduites lorsque votre système demande moins de mouvement (l’animation d’accueil est alors ignorée) ; les sons ne se jouent qu’après une interaction et peuvent être coupés.</li>
+        <li>Le site est disponible en français et en anglais (sélecteur en bas à gauche).</li>
+        <li>Le petit jeu de l’accueil (Pix) se joue au clavier et ses messages sont lus par les lecteurs d’écran.</li>
+        <li>Mise en page adaptée des petits téléphones aux grands écrans ; le scrapbook horizontal devient une page verticale sur téléphone.</li>
+      </ul>
+      <h3>Limites connues</h3>
+      <ul>
+        <li>Certains textes courts utilisent une police manuscrite qui peut être moins lisible ; cette police ne contient pas d’accents.</li>
+        <li>Les textes des projets et des quêtes viennent du système de gestion de contenu et sont rédigés dans une seule langue.</li>
+        <li>Les images des projets et des quêtes dépendent du texte alternatif saisi dans le système de gestion de contenu.</li>
+      </ul>
+      <p>Si quelque chose est difficile à utiliser, dites-le-moi : <a href="mailto:imane.shaiba@outlook.com">imane.shaiba@outlook.com</a>.</p>
+    </section>
+
+    <section class="legal__sheet" id="credits-fr" aria-labelledby="credits-title-fr">
+      <h2 id="credits-title-fr">4. Crédits</h2>
+      <dl class="legal__facts">
+        <div><dt>Design &amp; développement</dt><dd>Shaiba Imane (Figma, HTML, CSS, JavaScript)</dd></div>
+        <div><dt>Polices</dt><dd>Tox Typewriter © junkohanhero · i eat crayons © FontPanda <span class="todo">[licence web à confirmer]</span></dd></div>
+        <div><dt>Animation</dt><dd>GSAP de GreenSock, avec ScrollTrigger et Flip — <a href="https://gsap.com" target="_blank" rel="noopener">gsap.com</a></dd></div>
+        <div><dt>Contenu</dt><dd>Sanity.io</dd></div>
+        <div><dt>Photos</dt><dd>Portraits et captures des projets par Shaiba Imane</dd></div>
+        <div><dt>Personnages pixel</dt><dd>Pix (le dossier) et Radi (le radis), créés pour ce site à partir du sticker dossier pixel du scrapbook</dd></div>
+        <div><dt>Éléments du scrapbook</dt><dd class="todo">[à compléter — source et licence des textures de papier, boutons, stickers, scotch et images du clavier]</dd></div>
+        <div><dt>Sons</dt><dd>Enregistrements de clavier mécanique et de dossier <span class="todo">[source et licence à compléter]</span> ; les autres sons sont générés dans le navigateur</dd></div>
+      </dl>
+    </section>
+
+    <section class="legal__sheet" id="ip-fr" aria-labelledby="ip-title-fr">
+      <h2 id="ip-title-fr">5. Propriété intellectuelle</h2>
+      <p>Le design, les textes, les photos et le code de ce site appartiennent à Shaiba Imane, sauf mention contraire dans les crédits. Ils ne peuvent pas être réutilisés sans autorisation. Les projets présentés restent la propriété de leurs auteurs et clients respectifs.</p>
+    </section>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <p class="tape-links">
+      <a class="tape-link tape-link--linkedin" href="https://www.linkedin.com/in/imane-shaiba/" target="_blank" rel="noopener"><span class="tape-link__text">LinkedIn</span></a>
+      <a class="tape-link tape-link--contact" href="mailto:imane.shaiba@outlook.com"><span class="tape-link__text">Contact</span></a>
+    </p>
+  </footer>
+
+  <button class="ui-sound" type="button" data-sound-toggle aria-pressed="true">
+    <svg class="ui-sound__icon" viewBox="0 0 16 16" aria-hidden="true"><path class="ui-sound__body" d="M2 6h3l4-3v10l-4-3H2z"/><path class="ui-sound__waves" d="M11 5.5c1 .7 1.5 1.6 1.5 2.5s-.5 1.8-1.5 2.5M12.8 3.5C14.3 4.6 15 6.2 15 8s-.7 3.4-2.2 4.5"/><path class="ui-sound__off" d="M11 6l4 4M15 6l-4 4"/></svg>
+    <span data-sound-label>sound on</span>
+  </button>
+
+  <nav class="dock" aria-label="Main" data-i18n-aria="nav.main">
+    <a class="dock__item" href="works.html">
+      <span class="dock__icon"><img src="assets/img/home/sticker-folder.webp" alt="" width="108" height="84"></span>
+      <span class="dock__label" data-i18n="dock.works">works</span>
+    </a>
+    <a class="dock__item" href="quests.html">
+      <span class="dock__icon"><img src="assets/img/home/sticker-plant-flowers.webp" alt="" width="318" height="323"></span>
+      <span class="dock__label" data-i18n="dock.quests">quests</span>
+    </a>
+    <a class="dock__item" href="index.html#profile">
+      <span class="dock__icon dock__icon--photo"><img src="assets/img/home/polaroid-photo-imane.webp" alt="" width="320" height="470"></span>
+      <span class="dock__label" data-i18n="dock.profile">profile</span>
+    </a>
+  </nav>
+</body>
+</html>

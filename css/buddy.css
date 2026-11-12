@@ -1,0 +1,60 @@
+/* "Pix", the pixel buddy of the home page (js/buddy.js) */
+.buddy { --size: calc(74 * var(--u)); z-index: 40; }
+/* desktop: a piece of the strip, his feet on the spot */
+.buddy--strip { left: var(--bx); top: var(--by); width: var(--size); height: calc(var(--size) * 17 / 22); translate: -50% -100%; }
+/* mobile: a small item of the vertical scrapbook, in the gap between two blocks (never over the content) */
+.buddy--flow { --size: 3.4rem; position: relative; flex: none; width: var(--size); height: calc(var(--size) * 17 / 22); margin: -1.1rem 7vw; z-index: 5; }
+
+/* same soft shadow as the other stickers of the scrapbook (no outline) */
+.buddy__body {
+  display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none;
+  filter: drop-shadow(calc(2 * var(--u)) calc(5 * var(--u)) calc(5 * var(--u)) rgb(41 28 18 / .25));
+}
+.buddy__body svg { width: 100%; height: 100%; overflow: visible; image-rendering: pixelated; }
+.buddy__body:focus-visible { outline: 2px solid var(--color-brick); outline-offset: 4px; border-radius: 4px; }
+.buddy__frame { display: none; }
+.buddy[data-frame="idle"] .buddy__frame--idle,
+.buddy[data-frame="blink"] .buddy__frame--blink,
+.buddy[data-frame="happy"] .buddy__frame--happy { display: inline; }
+
+/* speech bubble: a scrap of paper held by a bit of kraft tape */
+.buddy__bubble {
+  position: absolute; left: 50%; bottom: calc(100% + .9rem); translate: -50% 0; rotate: -1.5deg; transform-origin: 50% 100%;
+  width: max-content; max-width: 15.5rem; padding: .85rem .9rem .7rem;
+  background: #fffaf0; color: var(--color-ink);
+  font-family: var(--font-body); font-size: .8125rem; line-height: 1.4; text-align: left;
+  box-shadow: 0 1px 2px rgb(41 28 18 / .12), 0 8px 18px rgb(41 28 18 / .16);
+}
+.buddy__bubble::before { /* kraft tape */
+  content: ""; position: absolute; left: 50%; top: -.55rem; width: 3.4rem; height: 1.15rem; translate: -50% 0; rotate: 4deg;
+  background: url("../assets/img/quests/tape-kraft-1.webp") center / 100% 100% no-repeat; opacity: .92;
+}
+.buddy__bubble::after { /* the tail */
+  content: ""; position: absolute; left: 50%; top: 100%; width: .7rem; height: .7rem; translate: -50% -50%; rotate: 45deg;
+  background: inherit; box-shadow: 3px 3px 4px rgb(41 28 18 / .08);
+}
+.buddy--below .buddy__bubble { bottom: auto; top: calc(100% + .6rem); transform-origin: 50% 0; }
+.buddy--below .buddy__bubble::after { top: 0; box-shadow: none; }
+.buddy--left .buddy__bubble { left: auto; right: -.4rem; translate: 0 0; transform-origin: 100% 100%; }
+.buddy--right .buddy__bubble { left: -.4rem; translate: 0 0; transform-origin: 0 100%; }
+.buddy--right .buddy__bubble::after { left: 1.4rem; translate: 0 -50%; }
+.buddy--left .buddy__bubble::after { left: auto; right: .9rem; translate: 0 -50%; }
+.buddy--left.buddy--below .buddy__bubble::after { translate: 0 -50%; }
+.buddy__count { display: block; margin-top: .3rem; font-size: .6875rem; color: var(--color-ink-muted); }
+.buddy__cta { display: inline-block; margin-top: .35rem; font-weight: 700; text-decoration: none; }
+
+.buddy__confetti { position: fixed; left: 0; top: 0; z-index: 300; width: 34px; height: auto; pointer-events: none; filter: drop-shadow(1px 3px 3px rgb(41 28 18 / .25)); }
+
+/* ---------- Radi, the pixel radish who just sleeps (js/radish.js) ---------- */
+.radish { --size: calc(62 * var(--u)); height: calc(var(--size) * 20 / 19); z-index: 39; pointer-events: none; } /* decorative: he just sleeps */
+/* z z z floating up while he naps */
+.radish__z { position: absolute; left: 78%; top: -5%; pointer-events: none; font-family: var(--font-body); color: var(--color-ink); }
+.radish__z i { position: absolute; font-style: normal; font-size: calc(15 * var(--u)); opacity: 0; animation: radish-z 3s ease-out infinite; }
+.radish__z i:nth-child(2) { animation-delay: 1s; font-size: calc(19 * var(--u)); }
+.radish__z i:nth-child(3) { animation-delay: 2s; font-size: calc(23 * var(--u)); }
+@keyframes radish-z {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: .8; }
+  100% { transform: translate(calc(18 * var(--u)), calc(-46 * var(--u))); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .radish__z i { animation: none; opacity: .7; } .radish__z i:nth-child(2) { transform: translate(8px, -12px); } .radish__z i:nth-child(3) { transform: translate(16px, -24px); } }

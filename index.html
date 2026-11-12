@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    /* language: saved choice, else the browser language; French pages stay hidden until translated (max 1.5 s) */
+    try {
+      var q = (location.search.match(/[?&]lang=(fr|en)/) || [])[1]; var l = q || localStorage.getItem("lang") || ((navigator.language || "").toLowerCase().indexOf("fr") === 0 ? "fr" : "en");
+      document.documentElement.lang = l;
+      if (l === "fr") { document.documentElement.classList.add("i18n-pending"); setTimeout(function () { document.documentElement.classList.remove("i18n-pending"); }, 1500); }
+    } catch (e) {}
+  </script>
+  <script type="module" src="js/i18n.js"></script> <!-- first: translates before GSAP is even downloaded -->
+  <title data-i18n="title.home">Shaiba Imane — Front-end developer</title>
+  <meta name="description" content="Portfolio of Shaiba Imane, front-end developer with a graphic designer’s eye: motion, GSAP and visual worlds brought to life on screen.">
+  <meta name="theme-color" content="#f6f1e7">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="assets/icons/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preload" href="assets/fonts/tox-typewriter.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/i-eat-crayons.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/intro.css">
+  <link rel="stylesheet" href="css/buddy.css">
+  <script>
+    /* intro on every load, not when arriving on an anchor or with reduced motion */
+    try {
+      if (!location.hash && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("has-intro");
+      }
+    } catch (e) {}
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js" defer></script>
+  <script type="module" src="js/home.js"></script>
+</head>
+<body>
+  <div class="intro" data-intro aria-hidden="true"></div>
+
+  <a class="skip-link" href="#about" data-i18n="skip.about">Skip to About</a>
+
+  <header class="ui-fixed">
+    <a class="ui-site-name notranslate" translate="no" href="index.html">Shaiba Imane</a>
+    <p class="ui-links tape-links">
+      <a class="tape-link tape-link--linkedin" href="https://www.linkedin.com/in/imane-shaiba/" target="_blank" rel="noopener"><span class="tape-link__text">LinkedIn</span></a>
+      <a class="tape-link tape-link--contact" href="mailto:imane.shaiba@outlook.com"><span class="tape-link__text">Contact</span></a>
+    </p>
+  </header>
+
+
+  <main class="scrollbook">
+    <div class="track">
+      <img class="piece section-2-backdrop" src="assets/img/home/section-2-backdrop.svg" alt="" aria-hidden="true">
+      <div class="piece paper-cream-bio grain" aria-hidden="true"></div>
+      <h1 class="g-title piece" aria-label="Front-end developer">
+        <img class="piece torn-paper-grid-beige" src="assets/img/home/torn-paper-grid-beige.webp" alt="" width="645" height="188" decoding="async" aria-hidden="true">
+        <img class="piece letter-01" src="assets/img/home/letter-01.webp" srcset="assets/img/home/letter-01-m.webp 85w, assets/img/home/letter-01.webp 170w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="170" height="229" decoding="async" aria-hidden="true">
+        <img class="piece letter-02" src="assets/img/home/letter-02.webp" srcset="assets/img/home/letter-02-m.webp 112w, assets/img/home/letter-02.webp 224w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="224" height="237" decoding="async" aria-hidden="true">
+        <img class="piece letter-03" src="assets/img/home/letter-03.webp" srcset="assets/img/home/letter-03-m.webp 97w, assets/img/home/letter-03.webp 195w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="195" height="220" decoding="async" aria-hidden="true">
+        <img class="piece letter-04" src="assets/img/home/letter-04.webp" srcset="assets/img/home/letter-04-m.webp 99w, assets/img/home/letter-04.webp 198w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="198" height="216" decoding="async" aria-hidden="true">
+        <img class="piece letter-05" src="assets/img/home/letter-05.webp" srcset="assets/img/home/letter-05-m.webp 89w, assets/img/home/letter-05.webp 179w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="179" height="229" decoding="async" aria-hidden="true">
+        <img class="piece letter-06" src="assets/img/home/letter-06.webp" srcset="assets/img/home/letter-06-m.webp 66w, assets/img/home/letter-06.webp 132w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="132" height="93" decoding="async" aria-hidden="true">
+        <img class="piece letter-07" src="assets/img/home/letter-07.webp" srcset="assets/img/home/letter-07-m.webp 84w, assets/img/home/letter-07.webp 168w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="168" height="226" decoding="async" aria-hidden="true">
+        <img class="piece letter-08" src="assets/img/home/letter-08.webp" srcset="assets/img/home/letter-08-m.webp 84w, assets/img/home/letter-08.webp 168w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="168" height="213" decoding="async" aria-hidden="true">
+        <img class="piece letter-09" src="assets/img/home/letter-09.webp" srcset="assets/img/home/letter-09-m.webp 106w, assets/img/home/letter-09.webp 212w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="212" height="218" decoding="async" aria-hidden="true">
+        <img class="piece letter-10" src="assets/img/home/letter-10.webp" srcset="assets/img/home/letter-10-m.webp 115w, assets/img/home/letter-10.webp 230w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="230" height="252" decoding="async" aria-hidden="true">
+        <img class="piece letter-11" src="assets/img/home/letter-11.webp" srcset="assets/img/home/letter-11-m.webp 87w, assets/img/home/letter-11.webp 175w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="175" height="251" decoding="async" aria-hidden="true">
+        <img class="piece letter-12" src="assets/img/home/letter-12.webp" srcset="assets/img/home/letter-12-m.webp 83w, assets/img/home/letter-12.webp 166w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="166" height="212" decoding="async" aria-hidden="true">
+        <img class="piece letter-13" src="assets/img/home/letter-13.webp" srcset="assets/img/home/letter-13-m.webp 100w, assets/img/home/letter-13.webp 201w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="201" height="231" decoding="async" aria-hidden="true">
+        <img class="piece letter-14" src="assets/img/home/letter-14.webp" srcset="assets/img/home/letter-14-m.webp 91w, assets/img/home/letter-14.webp 182w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="182" height="225" decoding="async" aria-hidden="true">
+        <img class="piece letter-15" src="assets/img/home/letter-15.webp" srcset="assets/img/home/letter-15-m.webp 97w, assets/img/home/letter-15.webp 194w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="194" height="216" decoding="async" aria-hidden="true">
+        <img class="piece letter-16" src="assets/img/home/letter-16.webp" srcset="assets/img/home/letter-16-m.webp 92w, assets/img/home/letter-16.webp 185w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="185" height="239" decoding="async" aria-hidden="true">
+        <img class="piece letter-17" src="assets/img/home/letter-17.webp" srcset="assets/img/home/letter-17-m.webp 91w, assets/img/home/letter-17.webp 182w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="182" height="231" decoding="async" aria-hidden="true">
+        <img class="piece letter-18" src="assets/img/home/letter-18.webp" srcset="assets/img/home/letter-18-m.webp 112w, assets/img/home/letter-18.webp 225w" sizes="(max-width: 52rem), (orientation: portrait) min(13vw, 70px), 11vh" alt="" width="225" height="231" decoding="async" aria-hidden="true">
+      </h1>
+      <a class="g-click piece link-piece" href="works.html">
+        <img class="piece paper-note-click-here" fetchpriority="high" src="assets/img/home/paper-note-click-here.webp" srcset="assets/img/home/paper-note-click-here-m.webp 204w, assets/img/home/paper-note-click-here.webp 409w" sizes="(max-width: 52rem), (orientation: portrait) min(66vw, 340px), 38vh" alt="" width="409" height="335" decoding="async" aria-hidden="true">
+        <p class="piece txt t-hand-type text-click-here t-center" data-i18n-html="home.click">click here to<br>see my work!</p>
+      </a>
+      <img class="piece button-strawberry-gingham" src="assets/img/home/button-strawberry-gingham.webp" alt="" width="192" height="211" decoding="async" aria-hidden="true">
+      <img loading="lazy" class="piece sticker-ctrl-z" src="assets/img/home/sticker-ctrl-z.webp" srcset="assets/img/home/sticker-ctrl-z-m.webp 300w, assets/img/home/sticker-ctrl-z.webp 600w" sizes="(max-width: 52rem), (orientation: portrait) min(52vw, 270px), 29vh" alt="" width="600" height="300" decoding="async" aria-hidden="true">
+      <div class="g-intro piece">
+        <img loading="lazy" class="piece paper-kraft-intro" src="assets/img/home/paper-kraft-intro.webp" srcset="assets/img/home/paper-kraft-intro-m.webp 217w, assets/img/home/paper-kraft-intro.webp 434w" sizes="(max-width: 52rem), (orientation: portrait) min(82vw, 420px), 40vh" alt="" width="434" height="361" decoding="async" aria-hidden="true">
+        <p class="piece txt t-hand text-intro t-center" data-i18n="home.intro">Front-end developer with a graphic designer’s eye, I create visual worlds and bring them to life on screen through animation.</p>
+      </div>
+      <div class="g-skills piece" role="group" aria-label="Skills" data-i18n-aria="home.skills">
+        <img loading="lazy" class="piece paper-lined-skills" src="assets/img/home/paper-lined-skills.webp" srcset="assets/img/home/paper-lined-skills-m.webp 196w, assets/img/home/paper-lined-skills.webp 393w" sizes="(max-width: 52rem), (orientation: portrait) min(66vw, 340px), 33vh" alt="" width="393" height="321" decoding="async" aria-hidden="true">
+        <p class="piece txt t-type list-skills">HTML / CSS<br>Tailwind<br>JavaScript<br>React.js<br>GSAP<br>WordPress · PHP<br>Node.js<br>SQL</p>
+        <img loading="lazy" class="piece paperclip-silver" src="assets/img/home/paperclip-silver.webp" alt="" width="180" height="196" decoding="async" aria-hidden="true">
+      </div>
+      <img loading="lazy" class="piece sticker-sunflower" src="assets/img/home/sticker-sunflower.webp" alt="" width="142" height="330" decoding="async" aria-hidden="true">
+      <div class="g-polaroid piece">
+        <img class="piece polaroid-photo-imane" src="assets/img/home/polaroid-photo-imane.webp" srcset="assets/img/home/polaroid-photo-imane-m.webp 160w, assets/img/home/polaroid-photo-imane.webp 320w" sizes="(max-width: 52rem), (orientation: portrait) min(34vw, 175px), 17vh" alt="Polaroid photo of Imane" data-i18n-alt="alt.polaroid" width="320" height="470" decoding="async">
+        <img class="piece clip-chrome" src="assets/img/home/clip-chrome.webp" alt="" width="129" height="107" decoding="async" aria-hidden="true">
+      </div>
+      <img loading="lazy" class="piece sticker-sun" src="assets/img/home/sticker-sun.webp" alt="" width="252" height="246" decoding="async" aria-hidden="true">
+      <img loading="lazy" class="piece keyboard-pastel" src="assets/img/home/keyboard-pastel.webp" srcset="assets/img/home/keyboard-pastel-m.webp 880w, assets/img/home/keyboard-pastel.webp 1760w" sizes="(max-width: 52rem), (orientation: portrait) min(104vw, 535px), 83vh" alt="" width="1760" height="715" decoding="async" aria-hidden="true">
+      <p class="g-name piece" role="img" aria-label="Shaiba Imane">
+        <img loading="lazy" class="piece bead-01" src="assets/img/home/bead-01.webp" alt="" width="161" height="150" decoding="async" aria-hidden="true">
+        <img loading="lazy" class="piece bead-02" src="assets/img/home/bead-02.webp" alt="" width="161" height="150" decoding="async" aria-hidden="true">
+        <img loading="lazy" class="piece bead-03" src="assets/img/home/bead-03.webp" alt="" width="161" height="149" decoding="async" aria-hidden="true">
+        <img loading="lazy" class="piece bead-04" src="assets/img/home/bead-04.webp" alt="" width="161" height="151" decoding="async" aria-hidden="true">
+        <img class="piece bead-05" src="assets/img/home/bead-05.webp" alt="" width="161" height="150" loading="lazy" decoding="async" aria-hidden="true">
+        <img class="piece bead-06" src="assets/img/home/bead-06.webp" alt="" width="161" height="149" loading="lazy" decoding="async" aria-hidden="true">
+        <img class="piece bead-07" src="assets/img/home/bead-07.webp" alt="" width="161" height="152" loading="lazy" decoding="async" aria-hidden="true">
+        <img class="piece bead-08" src="assets/img/home/bead-08.webp" alt="" width="161" height="151" loading="lazy" decoding="async" aria-hidden="true">
+        <img class="piece bead-09" src="assets/img/home/bead-09.webp" alt="" width="161" height="153" loading="lazy" decoding="async" aria-hidden="true">
+        <img class="piece bead-10" src="assets/img/home/bead-10.webp" alt="" width="161" height="151" loading="lazy" decoding="async" aria-hidden="true">
+        <img class="piece bead-11" src="assets/img/home/bead-11.webp" alt="" width="161" height="151" loading="lazy" decoding="async" aria-hidden="true">
+        <img class="piece stamp-internship" src="assets/img/home/stamp-internship.webp" srcset="assets/img/home/stamp-internship-m.webp 167w, assets/img/home/stamp-internship.webp 334w" sizes="(max-width: 52rem), (orientation: portrait) min(26vw, 140px), 19vh" alt="" width="334" height="323" loading="lazy" decoding="async" aria-hidden="true">
+        <img class="piece paperclip-diagonal" src="assets/img/home/paperclip-diagonal.webp" alt="" width="170" height="185" loading="lazy" decoding="async" aria-hidden="true">
+      </p>
+      <div class="g-collage piece" aria-hidden="true">
+        <img class="piece torn-paper-gingham-red" src="assets/img/home/torn-paper-gingham-red.webp" srcset="assets/img/home/torn-paper-gingham-red-m.webp 299w, assets/img/home/torn-paper-gingham-red.webp 598w" sizes="(max-width: 52rem), (orientation: portrait) min(42vw, 220px), 40vh" alt="" width="598" height="421" loading="lazy" decoding="async" aria-hidden="true">
+        <img class="piece torn-paper-tartan-red" src="assets/img/home/torn-paper-tartan-red.webp" srcset="assets/img/home/torn-paper-tartan-red-m.webp 261w, assets/img/home/torn-paper-tartan-red.webp 522w" sizes="(max-width: 52rem), (orientation: portrait) min(44vw, 230px), 42vh" alt="" width="522" height="274" loading="lazy" decoding="async" aria-hidden="true">
+        <img class="piece pin-heart-charm" src="assets/img/home/pin-heart-charm.webp" srcset="assets/img/home/pin-heart-charm-m.webp 229w, assets/img/home/pin-heart-charm.webp 458w" sizes="(max-width: 52rem), (orientation: portrait) min(30vw, 160px), 25vh" alt="" width="458" height="220" loading="lazy" decoding="async" aria-hidden="true">
+      </div>
+      <a class="g-work piece link-piece" href="works.html">
+        <img class="piece paper-note-blue" src="assets/img/home/paper-note-blue.webp" srcset="assets/img/home/paper-note-blue-m.webp 215w, assets/img/home/paper-note-blue.webp 431w" sizes="(max-width: 52rem), (orientation: portrait) min(44vw, 230px), 37vh" alt="" width="431" height="386" loading="lazy" decoding="async" aria-hidden="true">
+        <p class="piece txt t-hand text-work t-center" data-i18n="home.work">Work</p>
+        <img class="piece sticker-sparkles" src="assets/img/home/sticker-sparkles.webp" alt="" width="200" height="160" loading="lazy" decoding="async" aria-hidden="true">
+      </a>
+      <section class="g-about piece" id="about" aria-labelledby="about-title">
+        <h2 class="piece txt t-hand label-about" id="about-title" data-i18n="home.about">ABout</h2>
+        <span class="piece rule rule-bio" aria-hidden="true"></span>
+        <div class="piece txt t-type bio-column-1"><p data-i18n="home.bio1">I’m a front-end developer, and what gets me going is movement. A title that slides in, an image that reveals itself on scroll, a transition that makes you want to keep going: that’s where I have the most fun. GSAP and JS libraries are my best allies.</p><p data-i18n="home.bio2">Before code, there was publishing. That’s where I caught the branding and visual identity bug. Today, I mix the two: I create graphic worlds and bring them to life on screen.</p></div>
+        <div class="piece txt t-type bio-column-2"><p data-i18n="home.bio3">And I love what I do. Every day, I try a new tool or learn a new technique, and it never stops.</p><p data-i18n="home.bio4">Next step: an internship from February to April 2027, in Brussels. If you like websites that move, we should get along.</p></div>
+        <span class="piece rule rule-column-1" aria-hidden="true"></span>
+        <span class="piece rule rule-column-2" aria-hidden="true"></span>
+        <p class="piece txt t-hand label-contact" data-i18n="home.contact">Contact</p>
+        <p class="piece txt t-type contact-email"><a href="mailto:imane.shaiba@outlook.com">imane.shaiba@outlook.com</a></p>
+        <p class="piece txt t-type contact-linkedin"><a href="https://www.linkedin.com/in/imane-shaiba/" target="_blank" rel="noopener">LinkedIn</a></p>
+      </section>
+      <img class="piece tape-kraft" src="assets/img/home/tape-kraft.webp" alt="" width="392" height="510" loading="lazy" decoding="async" aria-hidden="true">
+      <a class="g-contact piece link-piece" href="mailto:imane.shaiba@outlook.com">
+        <img class="piece paper-grid-contact" src="assets/img/home/paper-grid-contact.webp" alt="" width="645" height="188" loading="lazy" decoding="async" aria-hidden="true">
+        <p class="piece txt t-type text-contact-me" data-i18n="home.contactMe">Contact me</p>
+        <img class="piece pushpin-wood" src="assets/img/home/pushpin-wood.webp" alt="" width="89" height="119" loading="lazy" decoding="async" aria-hidden="true">
+      </a>
+      <img class="piece sticker-plant-flowers" src="assets/img/home/sticker-plant-flowers.webp" alt="" width="318" height="323" loading="lazy" decoding="async" aria-hidden="true">
+      <img class="piece button-flower-frosted" src="assets/img/home/button-flower-frosted.webp" alt="" width="265" height="255" loading="lazy" decoding="async" aria-hidden="true">
+      <img class="piece coffee-stain" src="assets/img/home/coffee-stain.webp" srcset="assets/img/home/coffee-stain-m.webp 296w, assets/img/home/coffee-stain.webp 592w" sizes="(max-width: 52rem), (orientation: portrait) 40vw, 39vh" alt="" width="592" height="599" loading="lazy" decoding="async" aria-hidden="true">
+      <div class="g-badge piece" id="profile">
+        <img class="piece badge-portrait-imane" src="assets/img/home/badge-portrait-imane.webp" srcset="assets/img/home/badge-portrait-imane-m.webp 420w, assets/img/home/badge-portrait-imane.webp 840w" sizes="(max-width: 52rem), (orientation: portrait) min(56vw, 290px), 39vh" alt="Portrait of Imane Shaiba on a badge" data-i18n-alt="alt.badge" width="840" height="1492" loading="lazy" decoding="async">
+        <img class="piece button-gingham-blue" src="assets/img/home/button-gingham-blue.webp" alt="" width="191" height="188" loading="lazy" decoding="async" aria-hidden="true">
+      </div>
+      <section class="g-todo piece" aria-labelledby="todo-title">
+        <h2 class="piece txt t-type title-to-do-list" id="todo-title" data-i18n="todo.title" translate="no">To do list</h2>
+        <ul class="piece txt t-type list-to-do"><li><label class="todo-item"><input class="todo-input" type="checkbox" checked><span class="todo-box" aria-hidden="true">o<svg class="todo-tick" viewBox="-2.5 -6.5 21 22" aria-hidden="true"><path pathLength="1" d="M-1 6Q2.5 9 4.5 14Q9 3 17-5"/></svg></span><span class="todo-text" data-i18n="todo.1">I have an eye for the pixel that sticks out</span></label></li><li><label class="todo-item"><input class="todo-input" type="checkbox" checked><span class="todo-box" aria-hidden="true">o<svg class="todo-tick" viewBox="-2.5 -6.5 21 22" aria-hidden="true"><path pathLength="1" d="M-1 6Q2.5 9 4.5 14Q9 3 17-5"/></svg></span><span class="todo-text" data-i18n="todo.2">Part-time tutor, full-time patience</span></label></li><li><label class="todo-item"><input class="todo-input" type="checkbox" checked><span class="todo-box" aria-hidden="true">o<svg class="todo-tick" viewBox="-2.5 -6.5 21 22" aria-hidden="true"><path pathLength="1" d="M-1 6Q2.5 9 4.5 14Q9 3 17-5"/></svg></span><span class="todo-text" data-i18n="todo.3">I speak fluent human AND developer</span></label></li></ul>
+      </section>
+      <a class="ui-legal-corner ui-legal-end" href="legal.html" data-marker="fluo" data-i18n="legal">Legal notice</a>
+    </div>
+  </main>
+
+  <button class="ui-sound" type="button" data-sound-toggle aria-pressed="true">
+    <svg class="ui-sound__icon" viewBox="0 0 16 16" aria-hidden="true"><path class="ui-sound__body" d="M2 6h3l4-3v10l-4-3H2z"/><path class="ui-sound__waves" d="M11 5.5c1 .7 1.5 1.6 1.5 2.5s-.5 1.8-1.5 2.5M12.8 3.5C14.3 4.6 15 6.2 15 8s-.7 3.4-2.2 4.5"/><path class="ui-sound__off" d="M11 6l4 4M15 6l-4 4"/></svg>
+    <span data-sound-label>sound on</span>
+  </button>
+
+  <nav class="dock" aria-label="Main" data-i18n-aria="nav.main">
+    <a class="dock__item" href="works.html">
+      <span class="dock__icon"><img src="assets/img/home/sticker-folder.webp" alt="" width="108" height="84"></span>
+      <span class="dock__label" data-i18n="dock.works">works</span>
+    </a>
+    <a class="dock__item" href="quests.html">
+      <span class="dock__icon"><img src="assets/img/home/sticker-plant-flowers.webp" alt="" width="318" height="323"></span>
+      <span class="dock__label" data-i18n="dock.quests">quests</span>
+    </a>
+    <a class="dock__item" href="#profile">
+      <span class="dock__icon dock__icon--photo"><img src="assets/img/home/polaroid-photo-imane.webp" alt="" width="320" height="470"></span>
+      <span class="dock__label" data-i18n="dock.profile">profile</span>
+    </a>
+  </nav>
+</body>
+</html>

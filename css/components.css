@@ -1,0 +1,217 @@
+/* Shared UI: fixed header links + liquid-glass dock (Figma components UI-fixed, Dock-navigation). */
+
+/* ---------- fixed UI ---------- */
+.ui-fixed { position: fixed; inset: 0 0 auto 0; z-index: 50; pointer-events: none; }
+.ui-fixed a, .ui-fixed p { pointer-events: auto; }
+.ui-site-name {
+  position: absolute; left: var(--edge); top: clamp(1rem, 3.33vh, 2.25rem);
+  font-size: 1.125rem; text-decoration: none;
+}
+.ui-links {
+  position: absolute; right: var(--edge); top: clamp(1rem, 3.33vh, 2.25rem);
+  display: flex; flex-direction: column; align-items: flex-end; gap: var(--spacing-contact-stack);
+  font-size: 1rem; line-height: 1;
+}
+
+/* ---------- dock (liquid glass) ---------- */
+.dock {
+  position: fixed; left: 50%; bottom: max(clamp(1rem, 3.33vh, 2.25rem), env(safe-area-inset-bottom)); z-index: 60; /* above the iPhone home bar */
+  transform: translateX(-50%);
+  isolation: isolate;
+  display: flex; align-items: flex-start; gap: var(--spacing-dock-gap);
+  padding: var(--spacing-dock-padding-top) var(--spacing-dock-padding-x) var(--spacing-dock-padding-bottom);
+  border-radius: var(--radius-dock);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / .22) 0%, rgb(255 255 255 / .02) 48%, rgb(255 255 255 / .07) 100%),
+    var(--color-glass-dock);
+  border: 1px solid var(--color-glass-dock-stroke);
+  box-shadow:
+    inset 0 1.5px 0 rgb(255 255 255 / .95),       /* top rim light */
+    inset 1px 0 0 rgb(255 255 255 / .35),
+    inset -1px 0 0 rgb(255 255 255 / .35),
+    inset 0 -1.5px 1px rgb(255 255 255 / .45),    /* bottom rim */
+    inset 0 -14px 24px rgb(255 255 255 / .06),
+    0 22px 50px rgb(41 28 18 / .16),
+    0 2px 6px rgb(41 28 18 / .08);
+  -webkit-backdrop-filter: blur(2.5px) saturate(150%) brightness(1.07);
+  backdrop-filter: blur(2.5px) saturate(150%) brightness(1.07);
+}
+/* Chromium: real refraction through an SVG displacement filter (see js/glass.js) */
+.dock.is-liquid { backdrop-filter: url(#liquid-glass) blur(0.5px) saturate(150%) brightness(1.07); }
+/* specular highlight + soft caustic at the bottom */
+.dock::before, .dock::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; }
+.dock::before { background: radial-gradient(120% 70% at 22% -10%, rgb(255 255 255 / .55), rgb(255 255 255 / 0) 55%); mix-blend-mode: screen; }
+.dock::after { background: radial-gradient(80% 50% at 78% 115%, rgb(255 255 255 / .28), rgb(255 255 255 / 0) 60%); }
+
+.dock__item {
+  width: 5.625rem; /* 90 */
+  display: flex; flex-direction: column; align-items: center; gap: var(--spacing-item-icon-label);
+  text-decoration: none; color: var(--color-ink);
+}
+.dock__icon {
+  width: 4.5rem; height: 4.5rem; border-radius: var(--radius-tile);
+  display: grid; place-items: center; overflow: hidden;
+  background:
+    radial-gradient(90% 60% at 30% 0%, rgb(255 255 255 / .45), rgb(255 255 255 / 0) 60%),
+    var(--color-glass-tile);
+  border: 1px solid var(--color-glass-tile-stroke);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .9), inset 0 -1px 1px rgb(255 255 255 / .35), 0 4px 10px rgb(41 28 18 / .10);
+  transition: transform .25s cubic-bezier(.2, .9, .3, 1.3);
+}
+.dock__icon img { width: 75%; height: auto; image-rendering: pixelated; }
+.dock__icon--photo { position: relative; background: none; }
+/* same crop as Figma: the polaroid photo zoomed 2x on the face */
+.dock__icon--photo img { position: absolute; left: -44%; top: -55.8%; width: 200%; max-width: none; height: auto; image-rendering: auto; }
+.dock__label {
+  padding: 1px var(--spacing-dock-gap) 2px; border-radius: var(--radius-label);
+  font-size: 1.1875rem; line-height: 1.2; /* 19 */
+}
+.dock__item:hover .dock__icon, .dock__item:focus-visible .dock__icon { transform: translateY(-4px) scale(1.06); }
+.dock__item[aria-current="page"] .dock__label { background: var(--color-highlight); } /* current page: a highlighter stroke */
+
+@media (max-width: 40rem) {
+  .dock { padding: .625rem 1rem .5rem; }
+  .dock__item { width: 4.25rem; }
+  .dock__icon { width: 3.25rem; height: 3.25rem; border-radius: .875rem; }
+  .dock__label { font-size: .9375rem; }
+}
+
+/* ---------- highlighter on hover (shared; spans added by js/marker.js) ---------- */
+.marker {
+  --marker-color: var(--color-highlight);
+  background-image: linear-gradient(100deg, transparent 0.15em, var(--marker-color) 0.35em, var(--marker-color) calc(100% - 0.3em), transparent calc(100% - 0.1em));
+  background-repeat: no-repeat;
+  background-position: 0 88%;
+  background-size: 0% 0.62em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding-inline: 0.12em;
+  margin-inline: -0.12em;
+  transition: background-size .4s cubic-bezier(.65, 0, .35, 1);
+}
+.marker--line { background-position: 0 100%; background-size: 0% 0.42em; } /* highlighter underline */
+:is(a, .link-piece):is(:hover, :focus-visible) .marker, .marker.is-auto { background-size: 100% 0.62em; }
+:is(a, .link-piece):is(:hover, :focus-visible) .marker--line, .marker--line.is-auto { background-size: 100% 0.42em; }
+/* felt-pen circle around a word */
+.marker--circle { position: relative; display: inline-block; width: max-content; background: none; padding: 0; margin: 0; }
+.marker-circle {
+  position: absolute; left: -26%; top: -50%; width: 152%; height: 196%; max-width: none; overflow: visible; pointer-events: none;
+  fill: none; stroke: var(--color-brick); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round;
+}
+.marker-circle path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .7s cubic-bezier(.65, 0, .35, 1); }
+:is(a, .link-piece):is(:hover, :focus-visible) .marker-circle path, .marker--circle.is-auto .marker-circle path { stroke-dashoffset: 0; }
+/* (.is-auto: played automatically on touch screens, see js/marker.js) */
+
+.ui-fixed a, .contact-email a, .contact-linkedin a { text-decoration: none; }
+
+/* ---------- hand-drawn "back" arrow (draws itself on load, again on hover) ---------- */
+.back-link { display: inline-flex; align-items: center; gap: .4rem; text-decoration: none; }
+.back-arrow { width: 3.4rem; height: 1.7rem; overflow: visible; fill: none; stroke: var(--color-ink); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.back-arrow path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.back-arrow__line { animation: arrow-draw .9s .5s cubic-bezier(.65, 0, .35, 1) forwards; }
+.back-arrow__head { animation: arrow-draw .25s 1.35s ease-out forwards; }
+.back-link:is(:hover, :focus-visible) .back-arrow__line { animation: arrow-redraw .8s cubic-bezier(.65, 0, .35, 1) forwards; }
+.back-link:is(:hover, :focus-visible) .back-arrow__head { animation: arrow-redraw .25s .75s ease-out both; }
+@keyframes arrow-draw { to { stroke-dashoffset: 0; } }
+@keyframes arrow-redraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .back-arrow path { stroke-dashoffset: 0; animation: none !important; } }
+
+/* ---------- sound on / off (bottom left, every page) ---------- */
+.ui-sound {
+  position: fixed; left: var(--edge); bottom: clamp(1rem, 3.33vh, 2.25rem); z-index: 55;
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .3rem .6rem; border: 0; border-radius: 999px; background: none;
+  font: inherit; font-size: .875rem; color: var(--color-ink);
+}
+.ui-sound:hover, .ui-sound:focus-visible { background: var(--color-highlight); }
+.ui-sound__icon { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.ui-sound__body { fill: currentColor; }
+.ui-sound__off { display: none; }
+.ui-sound[aria-pressed="false"] .ui-sound__waves { display: none; }
+.ui-sound[aria-pressed="false"] .ui-sound__off { display: inline; }
+.ui-sound[aria-pressed="false"] { opacity: .6; }
+
+/* ---------- small screens ---------- */
+@media (max-width: 40rem) {
+  .ui-sound { padding: .45rem; }
+  .ui-sound [data-sound-label] { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); } /* icon only, label kept for screen readers */
+  .ui-sound__icon { width: 1.35rem; height: 1.35rem; }
+}
+
+
+/* "Legal notice": not fixed any more — it waits at the very end of the scroll, small and discreet
+   (home: bottom-right end of the strip / end of the vertical list; other pages: after the content) */
+.ui-legal-corner {
+  display: block; width: fit-content; margin: 1.25rem var(--edge) 9rem auto; /* bottom: room for the fixed dock */
+  font-size: .8125rem; color: var(--color-ink-muted); text-decoration: none;
+}
+.ui-legal-corner:hover, .ui-legal-corner:focus-visible { color: var(--color-ink); }
+
+/* ---------- LinkedIn / Contact: words typed on kraft tape (Figma page "Favicon", 211:1101 + 211:1104;
+   Contact uses scotch-kraft-04 from the asset library, 152:911). Sizes keep the Figma ratio:
+   40px text on a 343px tape, 358px for the second tape. ---------- */
+.tape-links {
+  --tape-w: 8.75rem;                      /* 140px → text ≈ 16px, same size as the old links */
+  display: flex; flex-direction: column; align-items: flex-end;
+}
+.tape-link {
+  position: relative; display: grid; place-items: center;
+  width: var(--tape-w); aspect-ratio: 343 / 183;
+  background: url("../assets/img/ui/tape-kraft-linkedin.webp") center / contain no-repeat;
+  font-family: var(--font-body); font-size: calc(var(--tape-w) * 40 / 343); line-height: 1;
+  color: var(--color-black); text-decoration: none; white-space: nowrap;
+  filter: drop-shadow(1px 2px 2px rgb(41 28 18 / .22));
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform .35s cubic-bezier(.2, .9, .3, 1.3), filter .35s ease;
+}
+.tape-link__text { display: block; transform: translate(var(--tx, 0), var(--ty, 0)) rotate(var(--r)); }
+.tape-link--linkedin { --r: -16deg; --ty: 4%; }
+.tape-link--contact {
+  --r: 20deg; --ty: 0%;
+  width: calc(var(--tape-w) * 358 / 343); aspect-ratio: 358 / 206;
+  background-image: url("../assets/img/ui/tape-kraft-contact.webp");
+  margin-top: calc(var(--tape-w) * -.2);  /* the two strips overlap a little, stuck one over the other */
+  margin-right: calc(var(--tape-w) * .12);
+}
+/* hover: the tape lifts off the page a little */
+.tape-link:is(:hover, :focus-visible) {
+  --tilt: -3deg;
+  transform: rotate(var(--tilt)) translateY(-2px) scale(1.05);
+  filter: drop-shadow(3px 7px 6px rgb(41 28 18 / .28));
+}
+.tape-link--contact:is(:hover, :focus-visible) { --tilt: 3deg; }
+.tape-link:focus-visible { outline-offset: -.4rem; }
+.ui-fixed .tape-links { gap: 0; top: clamp(.4rem, 1.6vh, 1.1rem); }
+
+/* LinkedIn / Contact tapes in the top-right corner (Works, Quests) */
+.tape-links--corner { position: fixed; right: var(--edge); top: clamp(.4rem, 1.6vh, 1.1rem); z-index: 50; margin: 0; }
+/* "Home" with the hand-drawn arrow: centred at the end of Works / Quests, the arrow pointing up */
+.ui-home-corner {
+  display: flex; flex-direction: column; align-items: center; gap: .5rem;
+  width: fit-content; margin: clamp(3rem, 8vh, 5rem) auto clamp(1.5rem, 4vh, 2.5rem);
+  font-size: 1rem; color: var(--color-ink);
+}
+.ui-home-corner .back-arrow { rotate: 90deg; width: 3.2rem; height: 1.6rem; margin-block: .8rem; }
+
+/* "Shaiba Imane" (top left): same highlighter swipe as "Contact me", in pink */
+.ui-site-name .marker { --marker-color: var(--color-highlight-pink); }
+
+/* ---------- FR · EN switch (js/i18n.js), bottom left next to the sound button ---------- */
+.ui-lang {
+  position: fixed; left: calc(var(--edge) + 6.6rem); bottom: clamp(1rem, 3.33vh, 2.25rem); z-index: 55;
+  display: inline-flex; align-items: center; gap: .15rem; font-size: .875rem; color: var(--color-ink);
+}
+.ui-lang button { padding: .3rem .55rem; border: 0; border-radius: 999px; background: none; font: inherit; color: inherit; letter-spacing: .04em; }
+.ui-lang button:hover, .ui-lang button:focus-visible { background: var(--color-highlight); }
+
+/* ---------- phones & portrait tablets: nothing floats over the content except the dock ---------- */
+@media (max-width: 52rem), (orientation: portrait) {
+  /* the top bar scrolls away with the page (site name · FR/EN on the left, tapes on the right) */
+  .ui-fixed { position: absolute; }
+  .ui-fixed::before { display: none; }
+  .tape-links--corner { position: absolute; }
+  .tape-links { --tape-w: 6.5rem; }
+  /* FR / EN: a small tag right after the site name, centred on the same line */
+  .ui-lang { position: absolute; left: calc(var(--edge) + var(--name-w, 8.2rem) + .6rem); top: calc(clamp(1rem, 3.33vh, 2.25rem) + .2rem); bottom: auto; }
+  .ui-lang button { padding: .18rem .5rem; border: 1px solid var(--color-ink-a25); font-size: .75rem; line-height: 1; letter-spacing: .06em; }
+}

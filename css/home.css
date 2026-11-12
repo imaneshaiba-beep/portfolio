@@ -1,0 +1,237 @@
+/* Home — horizontal scrapbook (Figma frame "Home", artboard 4254 x 1080).
+   Every piece is positioned in % of its container; sizes that depend on the
+   artboard (type, shadows) use --u = 1 artboard px scaled to the viewport height. */
+
+.scrollbook { height: var(--vh); overflow: hidden; }
+.scrollbook.is-native { overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; }
+
+.track {
+  position: relative;
+  height: var(--vh);
+  aspect-ratio: 4254 / 1080;
+  overflow: clip;            /* like the Figma frame: pieces bleeding off the edges are cut */
+  background: var(--color-page-bg) url("../assets/img/home/bg-bullet-journal.webp") repeat-x 0 0 / auto 100%;
+  will-change: transform;
+}
+
+/* a piece = one Figma layer, absolutely placed from its unrotated box */
+.piece {
+  position: absolute;
+  left: var(--x); top: var(--y); width: var(--w); height: var(--h);
+  rotate: var(--r, 0deg);
+  filter: var(--sh, none);
+  margin: 0;
+}
+img.piece { object-fit: contain; user-select: none; -webkit-user-drag: none; }
+
+/* backgrounds */
+.section-2-backdrop { left: 36.8359%; top: -1.1111%; width: 21.6432%; height: 102.5926%; }
+.paper-cream-bio {
+  left: 51.1872%; top: 23.9815%; width: 43.3709%; height: 72.7778%;
+  background: linear-gradient(112deg, rgb(255 250 240 / .35) 0%, rgb(255 250 240 / 0) 55%, rgb(204 179 148 / .12) 100%), var(--color-paper-cream);
+}
+
+/* text */
+.txt { height: auto; font-size: calc(var(--fs) * var(--u)); line-height: calc(var(--lh) * var(--u)); }
+.t-type, .t-hand-type { font-family: var(--font-body); }
+.t-hand { font-family: var(--font-handwritten); }
+.t-center { text-align: center; }
+/* single words stay on one line; sentences may wrap inside their box (translations, other fonts) */
+.text-work, .label-contact, .text-contact-me, .label-about, .title-to-do-list, .contact-email, .contact-linkedin { white-space: nowrap; }
+.label-about, .label-contact { font-weight: 700; } /* same weight for both handwritten labels ("About" is an h2) */
+.text-click-here { width: calc(var(--w) * 1.3); left: calc(var(--x) - var(--w) * 0.15); }
+.text-work { text-decoration: underline; text-underline-offset: calc(4 * var(--u)); }
+.bio-column-1 p + p, .bio-column-2 p + p { margin-top: calc(6 * var(--u)); }
+.contact-email a { text-decoration: none; }
+/* to-do list: real checkboxes, the red tick draws itself in / out */
+.todo-item { display: grid; grid-template-columns: calc(30 * var(--u)) 1fr; align-items: baseline; position: relative; cursor: pointer; }
+.todo-input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.todo-item:has(.todo-input:focus-visible) { outline: 2px solid var(--color-brick); outline-offset: 2px; border-radius: 4px; }
+.todo-box { position: relative; font-size: calc(24 * var(--u)); line-height: 1; transition: scale .2s; }
+.todo-item:hover .todo-box { scale: 1.12; }
+.todo-tick {
+  position: absolute; left: -0.04em; top: 0.1em; width: 0.72em; height: 0.76em; overflow: visible;
+  fill: none; stroke: var(--color-brick); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round;
+}
+/* unchecked: the round line cap would leave a red dot at the start of the empty stroke → hide it
+   (once the stroke has finished retracting) */
+.todo-tick path { stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; transition: stroke-dashoffset .35s cubic-bezier(.6, 0, .3, 1), opacity 0s .35s; }
+.todo-input:checked ~ .todo-box .todo-tick path { stroke-dashoffset: 0; opacity: 1; transition: stroke-dashoffset .35s cubic-bezier(.6, 0, .3, 1), opacity 0s; }
+.todo-text { line-height: calc(20 * var(--u)); padding-block: calc(10.5 * var(--u)); transition: opacity .25s; }
+.todo-input:not(:checked) ~ .todo-text { opacity: .75; }
+
+.rule { background: var(--color-ink-a85); }
+
+/* badge: hangs from its chain — gentle idle sway, swings when hovered.
+   Uses the CSS `rotate` property (GSAP drives `transform` for the scroll swing),
+   always towards the left so it never covers the to-do list. */
+.badge-portrait-imane { transform-origin: 50% 0%; animation: badge-sway 5s ease-in-out infinite alternate; }
+.badge-portrait-imane:hover { animation: badge-swing 1.8s cubic-bezier(.3, .7, .4, 1) both, badge-sway 5s 1.8s ease-in-out infinite alternate; }
+@keyframes badge-sway { from { rotate: 0deg; } to { rotate: 2.5deg; } }
+@keyframes badge-swing {
+  0% { rotate: 0deg; } 18% { rotate: 9deg; } 38% { rotate: 1deg; } 56% { rotate: 6deg; }
+  72% { rotate: 1.5deg; } 86% { rotate: 3.5deg; } 100% { rotate: 0deg; }
+}
+
+/* clickable collage pieces */
+.link-piece { display: block; color: inherit; text-decoration: none; transition: translate .35s cubic-bezier(.2, .9, .3, 1.3); }
+.link-piece:hover, .link-piece:focus-visible { translate: 0 calc(-8 * var(--u)); }
+
+/* generated from Figma */
+.g-title{--x:8.3681%;--y:8.875%;--w:18.7645%;--h:29.4644%;--aw:798.24;--ar:798.24/318.21}
+.torn-paper-grid-beige{--x:5.5121%;--y:35.883%;--w:87.6929%;--h:64.117%;--r:2deg;--sh:drop-shadow(calc(3 * var(--u)) calc(8 * var(--u)) calc(8 * var(--u)) rgb(41 28 18 / 0.22))}
+.letter-01{--x:0%;--y:4.0853%;--w:10.6234%;--h:35.9505%;--r:5deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-02{--x:9.561%;--y:0%;--w:14.0309%;--h:37.2075%;--r:-3deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-03{--x:22.1888%;--y:4.4624%;--w:12.2269%;--h:34.5678%;--r:2deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-04{--x:33.193%;--y:2.8911%;--w:12.4273%;--h:33.9393%;--r:-6deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-05{--x:44.3776%;--y:5.028%;--w:11.2247%;--h:35.9505%;--r:4deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-06{--x:54.4799%;--y:13.5129%;--w:8.2682%;--h:14.5813%;--r:-2deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-07{--x:61.9212%;--y:1.4456%;--w:10.5232%;--h:35.5734%;--r:6deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-08{--x:71.3921%;--y:5.3423%;--w:10.5232%;--h:33.4365%;--r:-4deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-09{--x:80.8629%;--y:3.0797%;--w:13.2792%;--h:34.1907%;--r:3deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-10{--x:0.5011%;--y:42.1727%;--w:14.4317%;--h:39.5959%;--r:-4deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-11{--x:13.4897%;--y:45.3781%;--w:10.9741%;--h:39.4702%;--r:6deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-12{--x:23.3664%;--y:45.6924%;--w:10.3728%;--h:33.1851%;--r:-3deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-13{--x:32.7019%;--y:47.3265%;--w:12.5777%;--h:36.2019%;--r:3deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-14{--x:44.0218%;--y:43.9326%;--w:11.4251%;--h:35.4477%;--r:-7deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-15{--x:54.3045%;--y:47.2008%;--w:12.1267%;--h:33.9393%;--r:4deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-16{--x:65.2185%;--y:42.2984%;--w:11.5755%;--h:37.459%;--r:-5deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-17{--x:75.6364%;--y:46.3209%;--w:11.4251%;--h:36.3276%;--r:2deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.letter-18{--x:85.919%;--y:45.0639%;--w:14.081%;--h:36.3276%;--r:-6deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.25))}
+.g-click{--x:4.3249%;--y:32.7014%;--w:10.8134%;--h:34.8861%;--aw:460;--ar:460/376.77}
+.paper-note-click-here{--x:0%;--y:0%;--w:100%;--h:100%;--r:8deg;--sh:drop-shadow(calc(3 * var(--u)) calc(8 * var(--u)) calc(8 * var(--u)) rgb(41 28 18 / 0.22))}
+.text-click-here{--x:20.5435%;--y:42.019%;--w:58.6957%;--h:23.3564%;--r:8deg;--fs:38;--lh:44}
+.button-strawberry-gingham{--x:4.2985%;--y:27.7005%;--w:2.2567%;--h:9.7565%;--r:8deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(3 * var(--u)) rgb(41 28 18 / 0.3))}
+.sticker-ctrl-z{--x:9.7323%;--y:66.4139%;--w:7.0522%;--h:13.8685%;--r:-6deg;--sh:drop-shadow(calc(3 * var(--u)) calc(8 * var(--u)) calc(8 * var(--u)) rgb(41 28 18 / 0.22))}
+.g-intro{--x:16.032%;--y:43.8889%;--w:11.2835%;--h:36.9685%;--aw:480;--ar:480/399.26}
+.paper-kraft-intro{--x:0%;--y:0%;--w:100%;--h:100%;--sh:drop-shadow(calc(3 * var(--u)) calc(8 * var(--u)) calc(8 * var(--u)) rgb(41 28 18 / 0.22))}
+.text-intro{--x:15.2125%;--y:29.9504%;--w:70.8333%;--h:39.0723%;--fs:20;--lh:39}
+.g-skills{--x:25.2967%;--y:40.7287%;--w:7.7574%;--h:24.9574%;--aw:330;--ar:330/269.54}
+.paper-lined-skills{--x:0%;--y:0%;--w:100%;--h:100%;--r:-5deg;--sh:drop-shadow(calc(3 * var(--u)) calc(8 * var(--u)) calc(8 * var(--u)) rgb(41 28 18 / 0.22))}
+.list-skills{--x:17.9182%;--y:25.3691%;--w:49.0909%;--h:71.2325%;--r:-7.78deg;--fs:21;--lh:24}
+.paperclip-silver{--x:47.1939%;--y:2.8085%;--w:27.2727%;--h:36.2321%;--r:-6deg;--sh:drop-shadow(calc(1 * var(--u)) calc(3 * var(--u)) calc(2 * var(--u)) rgb(41 28 18 / 0.3))}
+.sticker-sunflower{--x:15.3855%;--y:85.2778%;--w:1.669%;--h:15.2778%}
+.g-polaroid{--x:1.6785%;--y:50.687%;--w:3.7605%;--h:24.3644%;--aw:159.97;--ar:159.97/263.13}
+.polaroid-photo-imane{--x:0%;--y:10.7188%;--w:100%;--h:89.2812%;--r:-5.49deg;--sh:drop-shadow(calc(0 * var(--u)) calc(4 * var(--u)) calc(2 * var(--u)) rgb(41 28 18 / 0.37))}
+.clip-chrome{--x:23.3575%;--y:0%;--w:40.2951%;--h:20.347%;--r:-6.38deg}
+.sticker-sun{--x:5.2421%;--y:80.8657%;--w:3.15%;--h:12.1296%;--r:34.25deg}
+.keyboard-pastel{--x:31.6166%;--y:16.0417%;--w:20.6864%;--h:33.0815%;--r:2deg;--sh:drop-shadow(calc(4 * var(--u)) calc(10 * var(--u)) calc(11 * var(--u)) rgb(41 28 18 / 0.25))}
+.g-name{--x:30.223%;--y:65.3106%;--w:26.1113%;--h:35.2556%;--aw:1110.78;--ar:1110.78/380.76}
+.bead-01{--x:0%;--y:6.4844%;--w:7.2319%;--h:19.6423%;--r:6deg;--sh:drop-shadow(calc(2 * var(--u)) calc(5 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.3))}
+.bead-02{--x:8.829%;--y:10.0995%;--w:7.2319%;--h:19.708%;--r:-4deg;--sh:drop-shadow(calc(2 * var(--u)) calc(5 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.3))}
+.bead-03{--x:17.3014%;--y:3.6073%;--w:7.2319%;--h:19.5241%;--r:3deg;--sh:drop-shadow(calc(2 * var(--u)) calc(5 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.3))}
+.bead-04{--x:26.0467%;--y:8.6249%;--w:7.2319%;--h:19.7946%;--r:-7deg;--sh:drop-shadow(calc(2 * var(--u)) calc(5 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.3))}
+.bead-05{--x:33.9259%;--y:0%;--w:7.2319%;--h:19.5898%;--r:5deg;--sh:drop-shadow(calc(2 * var(--u)) calc(5 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.3))}
+.bead-06{--x:42.7521%;--y:4.7904%;--w:7.2319%;--h:19.5793%;--r:-3deg;--sh:drop-shadow(calc(2 * var(--u)) calc(5 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.3))}
+.bead-07{--x:30.4121%;--y:56.4739%;--w:7.2319%;--h:19.9469%;--r:-5deg;--sh:drop-shadow(calc(2 * var(--u)) calc(5 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.3))}
+.bead-08{--x:38.7486%;--y:50.3795%;--w:7.2319%;--h:19.8183%;--r:4deg;--sh:drop-shadow(calc(2 * var(--u)) calc(5 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.3))}
+.bead-09{--x:46.5756%;--y:56.2454%;--w:7.2319%;--h:20.0993%;--r:-6deg;--sh:drop-shadow(calc(2 * var(--u)) calc(5 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.3))}
+.bead-10{--x:55.1507%;--y:50.0906%;--w:7.2319%;--h:19.813%;--r:7deg;--sh:drop-shadow(calc(2 * var(--u)) calc(5 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.3))}
+.bead-11{--x:64.2767%;--y:60.8704%;--w:7.2319%;--h:19.7473%;--r:-3deg;--sh:drop-shadow(calc(2 * var(--u)) calc(5 * var(--u)) calc(4 * var(--u)) rgb(41 28 18 / 0.3))}
+.stamp-internship{--x:84.9655%;--y:55.6689%;--w:15.0345%;--h:42.5465%;--r:-17.46deg}
+.paperclip-diagonal{--x:77.8871%;--y:75.6198%;--w:7.6604%;--h:24.3802%;--r:172.3deg}
+.g-collage{--x:65.2198%;--y:4.0542%;--w:19.9812%;--h:34.5671%;--aw:850;--ar:850/373.33}
+.torn-paper-gingham-red{--x:0%;--y:0%;--w:49.4118%;--h:79.2044%;--r:3deg;--sh:drop-shadow(calc(3 * var(--u)) calc(8 * var(--u)) calc(8 * var(--u)) rgb(41 28 18 / 0.22))}
+.torn-paper-tartan-red{--x:48.2353%;--y:38.1343%;--w:51.7647%;--h:61.8657%;--r:-4deg;--sh:drop-shadow(calc(3 * var(--u)) calc(8 * var(--u)) calc(8 * var(--u)) rgb(41 28 18 / 0.22))}
+.pin-heart-charm{--x:57.6471%;--y:16.1789%;--w:30.5882%;--h:33.4534%;--r:6deg;--sh:drop-shadow(calc(1 * var(--u)) calc(4 * var(--u)) calc(3 * var(--u)) rgb(41 28 18 / 0.3))}
+.g-work{--x:70.6265%;--y:29.206%;--w:12.1063%;--h:29.8528%;--aw:515;--ar:515/322.41}
+.paper-note-blue{--x:0%;--y:0%;--w:69.9029%;--h:100%;--r:7deg;--sh:drop-shadow(calc(3 * var(--u)) calc(8 * var(--u)) calc(8 * var(--u)) rgb(41 28 18 / 0.22))}
+.text-work{--x:20.8505%;--y:42.6305%;--w:22.3301%;--h:11.4761%;--r:7deg;--fs:48;--lh:37}
+.sticker-sparkles{--x:80.5825%;--y:45.2871%;--w:19.4175%;--h:24.9341%;--r:-6deg;--sh:drop-shadow(calc(1 * var(--u)) calc(2 * var(--u)) calc(2 * var(--u)) rgb(41 28 18 / 0.2))}
+.g-about{--x:53.8082%;--y:63.4259%;--w:39.8919%;--h:19.537%;--aw:1697;--ar:1697/211}
+.label-about{--x:0%;--y:-4%;--w:3.1821%;--h:16.1137%;--fs:26}
+.rule-bio{--x:0%;--y:18.4834%;--w:100%;--h:0.7109%}
+.bio-column-1{--x:0%;--y:25.1185%;--w:37.7136%;--h:62.5592%;--fs:18;--lh:25}
+.bio-column-2{--x:40.7189%;--y:25.1185%;--w:28.2852%;--h:43.6019%;--fs:18;--lh:25}
+.rule-column-1{--x:39.8939%;--y:18.4834%;--w:0.0884%;--h:91%}
+.rule-column-2{--x:71.0077%;--y:18.4834%;--w:0.0884%;--h:91%}
+.label-contact{--x:71.7148%;--y:25.1185%;--w:4.6553%;--h:9.4787%;--fs:28}
+.contact-email{--x:79.9646%;--y:25.1185%;--w:10.607%;--h:8.0569%;--fs:18}
+.contact-linkedin{--x:79.9646%;--y:37.5%;--w:3.7124%;--h:8.0569%;--fs:18}
+.tape-kraft{--x:91.3973%;--y:17.0861%;--w:4.6074%;--h:23.5185%;--r:105deg}
+.g-contact{--x:84.4617%;--y:77.5926%;--w:15.1622%;--h:17.4074%;--aw:645;--ar:645/188}
+.paper-grid-contact{--x:0%;--y:0%;--w:100%;--h:100%}
+.text-contact-me{--x:22.6357%;--y:50%;--w:30.3876%;--h:19.1489%;--fs:36}
+.pushpin-wood{--x:4.7488%;--y:12.0319%;--w:6.8775%;--h:31.4255%;--r:7.42deg}
+.sticker-plant-flowers{--x:69.7461%;--y:86.2963%;--w:3.7377%;--h:14.9074%}
+.button-flower-frosted{--x:85.4432%;--y:41.5009%;--w:4.4925%;--h:17.0278%;--r:-20.08deg}
+.coffee-stain{--x:94.9255%;--y:-8.4824%;--w:6.9582%;--h:27.6852%;--r:-128.51deg}
+.g-badge{--x:51.4575%;--y:-6.3889%;--w:10.0846%;--h:71.0185%;--aw:429;--ar:429/767}
+.badge-portrait-imane{--x:0%;--y:0%;--w:97.9021%;--h:97.2386%;--sh:drop-shadow(calc(4 * var(--u)) calc(10 * var(--u)) calc(11 * var(--u)) rgb(41 28 18 / 0.28))}
+.button-gingham-blue{--x:75.5245%;--y:86.5711%;--w:24.4755%;--h:13.4289%}
+.g-todo{--x:60.7663%;--y:31.7593%;--w:9.4734%;--h:27.037%;--aw:403;--ar:403/292}
+.title-to-do-list{--x:0%;--y:0%;--w:39.7022%;--h:11.6438%;--fs:32}
+.list-to-do{--x:0.4963%;--y:19.1781%;--w:99.5037%;--h:80.8219%;--fs:16;--lh:41}
+
+/* =====================================================================
+   MOBILE / PORTRAIT (mobile first): the horizontal strip becomes a vertical
+   scrapbook. Same pieces, regrouped into blocks laid out in a column. Each
+   block keeps its own mini-composition (children in %), scaled to the screen
+   width: --u is redefined per block = block width / its artboard width.
+   ===================================================================== */
+@media (max-width: 52rem), (orientation: portrait) {
+  .scrollbook, .scrollbook.is-native { height: auto; overflow: visible; }
+  .track {
+    height: auto; aspect-ratio: auto; overflow: clip;
+    display: flex; flex-direction: column; align-items: center;
+    gap: clamp(1.5rem, 6vw, 3rem);
+    padding: 7.75rem 4vw clamp(10rem, 40vw, 12rem); /* top: room for the name and the tapes */
+    /* the column never gets wider than ~32rem: phones unchanged, tablets get a centred scrapbook
+       (pieces are sized in cqw = % of this column, the yellow name band stays full width) */
+    padding-inline: max(4vw, calc((100vw - 32rem) / 2));
+    container-type: inline-size;
+    background-size: auto 100vh; background-repeat: repeat;
+  }
+  .track > .piece { position: relative; left: auto; top: auto; flex: none; }
+  .track > [class*="g-"] {
+    --mw: 92cqw;
+    width: var(--mw); height: auto; aspect-ratio: var(--ar);
+    --u: calc(var(--mw) / var(--aw));
+  }
+
+  /* order of the story on mobile */
+  .g-title { order: 1; --mw: 94cqw !important; }
+  .g-click { order: 2; --mw: 74cqw !important; align-self: flex-start; }
+  .g-polaroid { order: 3; --mw: 34cqw !important; align-self: flex-end; margin-top: -24cqw; margin-right: 4cqw; }
+  .g-intro { order: 4; --mw: 82cqw !important; align-self: flex-end; }
+  .g-skills { order: 5; --mw: 66cqw !important; align-self: flex-start; margin-top: -10cqw; }
+  .sticker-ctrl-z { order: 6; width: 52cqw !important; height: auto !important; align-self: flex-end; margin-top: -8cqw; }
+  .keyboard-pastel { order: 7; width: 104cqw !important; height: auto !important; }
+  .g-name {
+    order: 8; --mw: 100vw !important; padding: 6vw 0;
+    background: var(--color-backdrop-yellow);
+    clip-path: polygon(0 3%, 8% 0, 17% 2.5%, 29% .5%, 41% 3%, 55% 0, 68% 2%, 81% .3%, 92% 2.8%, 100% 1%, 100% 97%, 90% 100%, 77% 97.5%, 63% 99.6%, 49% 97%, 34% 99.5%, 21% 97.2%, 9% 99.6%, 0 97.5%);
+  }
+  .g-badge { order: 9; --mw: 56cqw !important; }
+  .g-todo { order: 10; --mw: 90cqw !important; align-self: flex-start; margin-top: -4cqw; margin-bottom: -12cqw; } /* its box is taller than the 3 lines */
+  .g-work { order: 11; --mw: 58cqw !important; align-self: flex-start; margin-left: 3cqw; rotate: -4deg; }
+  .g-collage { order: 12; --mw: 78cqw !important; align-self: flex-end; margin-top: -9cqw; margin-right: -2cqw; rotate: 3deg; } /* tucked under the note, on the right */
+  .g-contact { order: 14; --mw: 86cqw !important; }
+
+  /* the bio becomes normal, readable text on a cream paper */
+  .g-about {
+    order: 13; --mw: 92cqw !important; aspect-ratio: auto !important; --u: 1px !important;
+    display: flex; flex-direction: column; gap: .9rem;
+    padding: 1.5rem 1.25rem; background: var(--color-paper-cream); box-shadow: 0 10px 26px rgb(41 28 18 / .10);
+  }
+  .g-about > .piece { position: static; width: auto; height: auto; rotate: none; filter: none; }
+  .g-about .label-about { font-size: 2rem; }
+  .g-about .rule-bio { height: 1.5px; }
+  .g-about .rule-column-1, .g-about .rule-column-2 { display: none; }
+  .g-about .bio-column-1, .g-about .bio-column-2 { font-size: 1.0625rem; line-height: 1.6; }
+  .g-about .label-contact { font-size: 1.85rem; margin-top: .5rem; }
+  .g-about .contact-email, .g-about .contact-linkedin { font-size: 1.0625rem; }
+
+  /* backgrounds and loose decorations of the desktop strip are not used here */
+  .section-2-backdrop, .paper-cream-bio, .button-strawberry-gingham, .sticker-sunflower, .sticker-sun,
+  .tape-kraft, .sticker-plant-flowers, .button-flower-frosted, .coffee-stain { display: none; }
+
+  .link-piece:hover, .link-piece:focus-visible { translate: none; }
+}
+
+/* "Legal notice": at the very end of the scrapbook — bottom-right end of the strip on desktop,
+   last item of the vertical list on phones */
+.ui-legal-end { position: absolute; right: 1.2%; bottom: 1.6%; margin: 0; z-index: 5; font-size: calc(14 * var(--u)); }
+@media (max-width: 52rem), (orientation: portrait) {
+  .track > .ui-legal-end { position: relative; right: auto; bottom: auto; order: 99; align-self: flex-end; margin: 1rem 0 0; font-size: .8125rem; }
+}

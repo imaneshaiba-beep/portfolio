@@ -1,0 +1,57 @@
+/* Design tokens — mirrors the Figma variable collection "Portfolio" (mode: Default). */
+:root {
+  /* color */
+  --color-page-bg: #f6f1e7;
+  --color-ink: #2b2420;
+  --color-ink-a85: rgb(43 36 32 / 0.85);
+  --color-ink-a55: rgb(43 36 32 / 0.55);
+  --color-ink-muted: rgb(43 36 32 / 0.72);   /* secondary text: ≥ 4.5:1 on every paper (WCAG AA) */
+  --color-ink-a25: rgb(43 36 32 / 0.25);
+  --color-ink-a12: rgb(43 36 32 / 0.12);
+  --color-ink-a08: rgb(43 36 32 / 0.08);
+  --color-black: #000000;
+  --color-brick: #c23b32;
+  --color-backdrop-yellow: #f6d76d;
+  --color-paper-cream: #f0e3d1;
+  --color-folder-kraft: #dcc3a0;
+  --color-photo-border: #fbf7ef;
+  --color-white: #ffffff;
+  --color-highlight: rgb(255 150 50 / 0.7); /* orange highlighter (hover) */
+  --color-highlight-pink: rgb(255 130 185 / 0.7); /* pink highlighter: site name */
+  --color-glass-dock: rgb(255 255 255 / 0.09);
+  --color-glass-dock-stroke: rgb(255 255 255 / 0.7);
+  --color-glass-tile: rgb(255 255 255 / 0.14);
+  --color-glass-tile-stroke: rgb(255 255 255 / 0.9);
+
+  /* font */
+  --font-body: "Tox Typewriter", "Special Elite", "Courier New", monospace;
+  --font-handwritten: "i eat crayons", "Comic Sans MS", cursive;
+
+  /* spacing (px values from Figma, expressed in rem) */
+  --spacing-dock-padding-x: 1.625rem;   /* 26 */
+  --spacing-dock-padding-top: 1rem;     /* 16 */
+  --spacing-dock-padding-bottom: 0.875rem; /* 14 */
+  --spacing-dock-gap: 0.5rem;           /* 8 */
+  --spacing-item-icon-label: 0.375rem;  /* 6 */
+  --spacing-contact-stack: 0.8125rem;   /* 13 */
+
+  /* radius */
+  --radius-dock: 2.125rem;   /* 34 */
+  --radius-tile: 1.125rem;   /* 18 */
+  --radius-label: 0.375rem;  /* 6 */
+
+  /* layout: the Home composition is drawn on a 1080px-high artboard.
+     --u = 1 artboard pixel, scaled to the viewport height. */
+  --artboard-h: 1080;
+  --vh: 100vh;
+  --u: calc(var(--vh) / var(--artboard-h));
+  --edge: 2%;                 /* 30px of 1512 */
+}
+
+/* dynamic viewport height where supported (mobile browser bars) */
+@supports (height: 100dvh) {
+  :root { --vh: 100dvh; }
+}
+
+/* phones: a real side margin (2% was only ~8px) for the name, the FR/EN tag, the tapes, the sound button… */
+@media (max-width: 40rem) { :root { --edge: 1.15rem; } }
