@@ -35,7 +35,10 @@ function buildQuest(q, index) {
   if (st === "next") li.classList.add("polaroid--next");
   // a scrap of paper peeks out behind each polaroid
   const SCRAPS = ["scrap-pink", "scrap-green", "scrap-cream", "scrap-white"];
-  li.querySelector("[data-scrap]").src = `assets/img/quests/${SCRAPS[index % SCRAPS.length]}.webp`;
+  const scrap = li.querySelector("[data-scrap]"), sname = `assets/img/quests/${SCRAPS[index % SCRAPS.length]}`;
+  scrap.srcset = `${sname}-m.webp 190w, ${sname}-l.webp 285w, ${sname}.webp 380w`; // shown 249 px wide
+  scrap.sizes = "249px";
+  scrap.src = `${sname}.webp`;
   // the whole polaroid opens the detail page (title link stretched over the card)
   const open = li.querySelector(".polaroid__open");
   if (q.slug) open.href = `quest.html?q=${encodeURIComponent(q.slug)}`;

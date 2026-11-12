@@ -25,10 +25,11 @@ export async function sanityQuery(query, params = {}, { signal } = {}) {
   throw lastError;
 }
 
-// Image CDN URL: exact size, cropped around the hotspot, served as WebP.
-export function imageUrl(image, { width, height, quality = 80 }) {
+// Image CDN URL: exact size, cropped around the hotspot, in the lightest format the browser
+// accepts (auto=format → AVIF when supported, else WebP).
+export function imageUrl(image, { width, height, quality = 75 }) {
   if (!image?.url) return "";
-  const params = new URLSearchParams({ w: width, h: height, fit: "crop", fm: "webp", q: quality });
+  const params = new URLSearchParams({ w: width, h: height, fit: "crop", fm: "webp", auto: "format", q: quality });
   if (image.hotspot) {
     params.set("crop", "focalpoint");
     params.set("fp-x", image.hotspot.x.toFixed(3));

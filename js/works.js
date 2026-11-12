@@ -17,8 +17,8 @@ const template = document.getElementById("folder-template");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const DECOS = [
-  { cls: "folder__deco--tape", src: "assets/img/works/deco-tape-kraft.webp", w: 260, h: 138 },
-  { cls: "folder__deco--clip", src: "assets/img/works/deco-paperclip.webp", w: 148, h: 132 },
+  { cls: "folder__deco--tape", src: "assets/img/works/deco-tape-kraft.webp", w: 260, h: 138, sizes: "(max-width: 52rem) 96px, 144px" },
+  { cls: "folder__deco--clip", src: "assets/img/works/deco-paperclip.webp", w: 148, h: 132, sizes: "(max-width: 52rem) 56px, 80px" },
 ];
 
 function fill(node, field, value) {
@@ -60,7 +60,11 @@ function buildFolder(project, index) {
 
   const deco = DECOS[index % DECOS.length];
   const d = document.createElement("img");
-  Object.assign(d, { src: deco.src, alt: "", width: deco.w, height: deco.h, className: `folder__deco ${deco.cls}` });
+  const base = deco.src.replace(".webp", "");
+  Object.assign(d, {
+    srcset: `${base}-xs.webp ${Math.round(deco.w / 4)}w, ${base}-m.webp ${Math.round(deco.w / 2)}w, ${base}-l.webp ${Math.round(deco.w * 3 / 4)}w, ${deco.src} ${deco.w}w`,
+    sizes: deco.sizes, src: deco.src, alt: "", width: deco.w, height: deco.h, className: `folder__deco ${deco.cls}`,
+  });
   d.setAttribute("aria-hidden", "true");
   li.querySelector(".folder__photo").append(d);
   return li;
