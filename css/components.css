@@ -6,6 +6,7 @@
 .ui-site-name {
   position: absolute; left: var(--edge); top: clamp(1rem, 3.33vh, 2.25rem);
   font-size: 1.125rem; text-decoration: none;
+  white-space: nowrap; /* the name never breaks (iOS Safari rounded the intro's max-content width down and pushed the last "e" to a new line) */
 }
 .ui-links {
   position: absolute; right: var(--edge); top: clamp(1rem, 3.33vh, 2.25rem);
