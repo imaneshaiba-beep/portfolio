@@ -96,6 +96,15 @@ function setProgress(i, n) { if (progress) progress.textContent = `${pad(i + 1)}
 function listMode(folders) {
   document.body.classList.remove("is-stacked");
   if (progress) progress.textContent = ""; // the counter only makes sense with the pinned stack
+  // phones / tablets: a pile of "sticky" folders. Native scroll; each folder stops at the top and the
+  // next one slides over it, leaving its tab showing (like dividers). A folder taller than the screen
+  // just scrolls normally, so nothing is ever hidden before being read.
+  if (window.matchMedia("(max-width: 52rem)").matches) {
+    document.body.classList.add("is-pile");
+    const fit = () => folders.forEach((f) => f.classList.toggle("no-stick", f.offsetHeight > window.innerHeight - 48));
+    fit();
+    window.addEventListener("resize", fit);
+  }
   if (reduceMotion || !window.gsap || !window.ScrollTrigger) return;
   folders.forEach((f, i) => {
     const tl = arrival(f, i);

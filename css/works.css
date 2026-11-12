@@ -180,3 +180,9 @@
 }
 /* phones: the dock room is left by "Legal notice" at the very end, not by the page itself */
 @media (max-width: 52rem), (orientation: portrait) { .works { padding-bottom: 1rem; } }
+
+/* phones / tablets: sticky pile of folders (js/works.js → .is-pile) */
+@media (max-width: 52rem) {
+  .is-pile .folder { position: sticky; top: calc(.75rem + var(--i, 0) * .6rem); }
+  .is-pile .folder.no-stick { position: relative; top: auto; }
+}
