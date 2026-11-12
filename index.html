@@ -41,10 +41,15 @@
   <link rel="stylesheet" href="css/intro.css">
   <link rel="stylesheet" href="css/buddy.css">
   <script>
-    /* intro on every load, not when arriving on an anchor or with reduced motion */
+    /* intro once per visit: not when coming back to the home from another page of the site (works,
+       quests…), not on an anchor link, not with reduced motion. Opening the site again in a new tab plays it again. */
     try {
-      if (!location.hash && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      var seen = false, fromSite = false;
+      try { seen = sessionStorage.getItem("intro-seen") === "1"; } catch (e) {}
+      try { fromSite = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
+      if (!location.hash && !seen && !fromSite && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
         document.documentElement.classList.add("has-intro");
+        try { sessionStorage.setItem("intro-seen", "1"); } catch (e) {}
       }
     } catch (e) {}
   </script>
