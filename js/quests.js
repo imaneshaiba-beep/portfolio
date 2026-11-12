@@ -172,7 +172,12 @@ grid.addEventListener("click", (e) => {
   const open = e.target.closest(".polaroid")?.querySelector(".polaroid__open[href]");
   if (open) location.href = open.href;
 });
+// phones: no hover, so the paper flap plays when a card is touched
+if (window.matchMedia("(hover: none)").matches) {
+  grid.addEventListener("pointerdown", (e) => { if (e.target.closest(".polaroid:not(.polaroid--loading)")) play("paper"); }, { passive: true });
+}
 grid.addEventListener("mouseover", (e) => {
+  if (e.sourceCapabilities?.firesTouchEvents || window.matchMedia("(hover: none)").matches) return; // taps: handled above
   const c = e.target.closest(".polaroid:not(.polaroid--loading)");
   if (c && !c.contains(e.relatedTarget)) play("paper");
 });

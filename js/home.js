@@ -194,7 +194,7 @@ function initHover() {
   on(".sticker-ctrl-z", withSound(press, "rewind"));
   // the "stage février–avril 2027" stamp stays still: no hover animation
   on(".pin-heart-charm", withSound(swing, "jingle"));
-  document.querySelector(".badge-portrait-imane")?.addEventListener("mouseenter", () => play("jingle"));
+  document.querySelector(".badge-portrait-imane")?.addEventListener(evt, () => play("jingle"));
   on(".g-polaroid", withSound(hang, "paper"));
 }
 

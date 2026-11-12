@@ -107,9 +107,19 @@ function listMode(folders) {
   // just scrolls normally, so nothing is ever hidden before being read.
   if (window.matchMedia("(max-width: 52rem)").matches) {
     document.body.classList.add("is-pile");
-    const fit = () => folders.forEach((f) => f.classList.toggle("no-stick", f.offsetHeight > window.innerHeight - 48));
+    // measured against the SMALL viewport height (address bar shown): on phones the height changes
+    // while scrolling (the bar folds away), and re-testing then made folders switch between sticky
+    // and normal mid-scroll → the page jumped. Re-tested only when the width changes (rotation).
+    const probe = document.createElement("div");
+    probe.style.cssText = "position:fixed;top:0;left:-9999px;width:1px;height:100vh;height:100svh;visibility:hidden;pointer-events:none";
+    document.body.append(probe);
+    const fit = () => {
+      const screenH = probe.offsetHeight || window.innerHeight;
+      folders.forEach((f) => f.classList.toggle("no-stick", f.offsetHeight > screenH - 48));
+    };
     fit();
-    window.addEventListener("resize", fit);
+    let lastW = window.innerWidth;
+    window.addEventListener("resize", () => { if (window.innerWidth !== lastW) { lastW = window.innerWidth; fit(); } });
   }
   if (reduceMotion || !window.gsap || !window.ScrollTrigger) return;
   folders.forEach((f, i) => {
@@ -235,7 +245,12 @@ async function load() {
 addMarkers();
 initSoundToggle();
 // a little paper flap when a folder is hovered
+// phones: no hover, so the paper flap plays when a card is touched
+if (window.matchMedia("(hover: none)").matches) {
+  grid.addEventListener("pointerdown", (e) => { if (e.target.closest(".folder:not(.folder--loading)")) play("paper"); }, { passive: true });
+}
 grid.addEventListener("mouseover", (e) => {
+  if (e.sourceCapabilities?.firesTouchEvents || window.matchMedia("(hover: none)").matches) return; // taps: handled above
   const f = e.target.closest(".folder:not(.folder--loading)");
   if (f && !f.contains(e.relatedTarget)) play("paper");
 });

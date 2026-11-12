@@ -164,14 +164,25 @@ const SOUNDS = {
   },
 };
 
+// On phones the very first tap is the one that unlocks audio, and the unlock takes a few ms: the
+// sound of that tap used to be dropped. Now it waits for the unlock, but only briefly (a sound asked
+// for during page load, before any tap, is not played seconds later).
+function whenRunning(c, fn) {
+  if (c.state === "running") { fn(); return; }
+  const asked = performance.now();
+  c.resume?.().then(() => { if (c.state === "running" && performance.now() - asked < 400) fn(); }, () => {});
+}
+
 export function play(name) {
   if (!enabled || !SOUNDS[name]) return;
   const c = audio();
-  if (!c || c.state !== "running") return;
-  const now = c.currentTime;
-  if (name !== "typing" && now - last < 0.04) return; // avoid machine-gun hover spam
-  last = now;
-  SOUNDS[name](now + 0.005);
+  if (!c) return;
+  whenRunning(c, () => {
+    const now = c.currentTime;
+    if (name !== "typing" && now - last < 0.04) return; // avoid machine-gun hover spam
+    last = now;
+    SOUNDS[name](now + 0.005);
+  });
 }
 
 // Beads of the name: each letter has its own note of a pentatonic scale, S (low) → E (high),
@@ -180,10 +191,12 @@ const SCALE = [523.25, 587.33, 659.25, 783.99, 880, 1046.5, 1174.66, 1318.51, 15
 export function playBead(index) {
   if (!enabled) return;
   const c = audio();
-  if (!c || c.state !== "running") return;
-  const t = c.currentTime + 0.005, f = SCALE[Math.max(0, Math.min(index, SCALE.length - 1))];
-  tone(t, { freq: f, dur: 0.6, gain: 0.16, type: "sine", attack: 0.006 });        // soft bell
-  tone(t, { freq: f * 2, dur: 0.35, gain: 0.05, type: "triangle", attack: 0.006 }); // shimmer
+  if (!c) return;
+  whenRunning(c, () => {
+    const t = c.currentTime + 0.005, f = SCALE[Math.max(0, Math.min(index, SCALE.length - 1))];
+    tone(t, { freq: f, dur: 0.6, gain: 0.16, type: "sine", attack: 0.006 });        // soft bell
+    tone(t, { freq: f * 2, dur: 0.35, gain: 0.05, type: "triangle", attack: 0.006 }); // shimmer
+  });
 }
 
 // sounds that come with scrolling (blocks landing, folders piling): never two closer than 0.6 s,
