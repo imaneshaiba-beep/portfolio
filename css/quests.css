@@ -70,8 +70,9 @@
 .polaroid:nth-child(4n + 2) { --tilt: 2.5deg; --shift: 2.5rem; }
 .polaroid:nth-child(4n + 3) { --tilt: 3.5deg; --shift: -1rem; }
 .polaroid:nth-child(4n + 4) { --tilt: -2deg; --shift: 1.5rem; }
-/* the two polaroids beside the note sit lower, on the same line */
-.polaroid:nth-child(1), .polaroid:nth-child(2) { --shift: clamp(9rem, 17vw, 15rem); }
+/* the two polaroids beside the note sit lower, on the same line. They span the note's two rows
+   and use a real margin (not translate) so the next quests start below them instead of under them. */
+.polaroid:nth-child(1), .polaroid:nth-child(2) { grid-row: 1 / span 2; margin-top: clamp(9rem, 17vw, 15rem); --shift: 0rem; }
 
 .polaroid__scrap {
   position: absolute; z-index: 0; width: 82%; height: auto; left: 36%; top: 14%;
@@ -179,6 +180,7 @@
   .board__quests { grid-template-columns: 1fr; gap: 4.5rem; }
   .board__quests::before { display: none; }
   .polaroid { --shift: 0rem !important; }
+  .polaroid:nth-child(1), .polaroid:nth-child(2) { grid-row: auto; margin-top: 0; }
   .board__deco--button-star, .board__deco--sparkles, .board__deco--flower, .board__deco--star-b, .board__deco--star-s,
   .board__doodle--arrow, .board__doodle--underline, .board__deco--coffee { display: none; }
   .board__note-cardboard { left: -4%; width: 108%; }
