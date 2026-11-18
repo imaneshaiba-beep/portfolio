@@ -94,6 +94,22 @@ function gsapScroll() {
   });
   const inTrack = (trigger, extra = {}) => ({ trigger, containerAnimation: scroller, ...extra });
 
+  // Safari: the viewport height (dvh) can change without a window "resize" event (toolbar shown or
+  // hidden, full screen, page restored from the back/forward cache). The track width follows that
+  // height, so the scroll length is recomputed whenever the track's size changes; otherwise the strip
+  // stops short, or overshoots and leaves a big blank area at the end.
+  let lastW = track.offsetWidth, refreshTimer;
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(() => {
+      const w = track.offsetWidth;
+      if (Math.abs(w - lastW) < 1) return;
+      lastW = w;
+      clearTimeout(refreshTimer);
+      refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 120);
+    }).observe(track);
+  }
+  window.addEventListener("pageshow", (e) => { if (e.persisted) ScrollTrigger.refresh(); });
+
   // Cut-out letters drop in, one by one — right after the welcome intro.
   const letters = gsap.from(".g-title img:not(.torn-paper-grid-beige)", {
     y: () => -40 * unit(), autoAlpha: 0, duration: 0.7, ease: "back.out(2)", stagger: 0.04, paused: true,
