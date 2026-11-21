@@ -82,8 +82,8 @@ const LINES = FR ? [
   `Her projects are behind that blue note. I'd click it. I'm biased, I'm a folder.${ahead}`,
 ];
 const WIN = FR
-  ? "Vous m’avez attrapé 6 fois ! Vous avez clairement du goût. Elle cherche un stage à Bruxelles, de février à avril 2027… je dis ça, je dis rien ♥"
-  : "You caught me 6 times! Clearly you have taste. She's looking for an internship in Brussels, February to April 2027… just saying ♥";
+  ? "Vous m’avez attrapé 6 fois ! Vous avez clairement du goût. Elle cherche un stage à Bruxelles, de février à mai 2027… je dis ça, je dis rien ♥"
+  : "You caught me 6 times! Clearly you have taste. She's looking for an internship in Brussels, February to May 2027… just saying ♥";
 const CTA = FR ? "Dire bonjour →" : "Say hi →";
 const EXTRA = FR ? [
   "Bon, bon, vous avez gagné. Allez lui écrire !",

@@ -208,7 +208,7 @@ function initHover() {
   on(".paperclip-silver, .paperclip-diagonal", withSound(wiggle, "jingle"));
   on(".button-strawberry-gingham, .button-gingham-blue, .button-flower-frosted", withSound(spin, "pop"));
   on(".sticker-ctrl-z", withSound(press, "rewind"));
-  // the "stage février–avril 2027" stamp stays still: no hover animation
+  // the "stage février–mai 2027" stamp stays still: no hover animation
   on(".pin-heart-charm", withSound(swing, "jingle"));
   document.querySelector(".badge-portrait-imane")?.addEventListener(evt, () => play("jingle"));
   on(".g-polaroid", withSound(hang, "paper"));
