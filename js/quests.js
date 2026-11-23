@@ -36,8 +36,8 @@ function buildQuest(q, index) {
   // a scrap of paper peeks out behind each polaroid
   const SCRAPS = ["scrap-pink", "scrap-green", "scrap-cream", "scrap-white"];
   const scrap = li.querySelector("[data-scrap]"), sname = `assets/img/quests/${SCRAPS[index % SCRAPS.length]}`;
-  scrap.srcset = `${sname}-m.webp 190w, ${sname}-l.webp 285w, ${sname}.webp 380w`; // shown 249 px wide
-  scrap.sizes = "249px";
+  scrap.srcset = `${sname}-m.webp 190w, ${sname}-l.webp 285w, ${sname}.webp 380w`; // shown 328 px wide
+  scrap.sizes = "328px";
   scrap.src = `${sname}.webp`;
   // the whole polaroid opens the detail page (title link stretched over the card)
   const open = li.querySelector(".polaroid__open");
@@ -49,7 +49,7 @@ function buildQuest(q, index) {
     img.src = q.apercu.ext === "gif" ? q.apercu.url : imageUrl(q.apercu, { width: 720, height: 576 });
     if (q.apercu.ext !== "gif") { // the polaroid photo is 280 px wide on every screen
       img.srcset = [360, 560].map((w) => `${imageUrl(q.apercu, { width: w, height: w * 4 / 5 })} ${w}w`).join(", ") + `, ${img.src} 720w`;
-      img.sizes = "280px";
+      img.sizes = "376px";
     }
     img.alt = q.apercu.alt || "";
     if (index > 3) img.loading = "lazy";

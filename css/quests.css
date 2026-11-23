@@ -63,7 +63,7 @@
 .board__quests::before { content: ""; grid-column: 2; grid-row: 1 / span 2; height: var(--note-h, 30rem); }
 
 /* ---------- polaroid ---------- */
-.polaroid { --tilt: -3deg; --shift: 0rem; position: relative; z-index: 3; width: min(100%, 19rem); justify-self: center; translate: 0 var(--shift); }
+.polaroid { --tilt: -3deg; --shift: 0rem; position: relative; z-index: 3; width: min(100%, 25rem); justify-self: center; translate: 0 var(--shift); }
 .polaroid:nth-child(3n + 1) { justify-self: start; }
 .polaroid:nth-child(3n + 3) { justify-self: end; }
 .polaroid:nth-child(4n + 1) { --tilt: -3.5deg; --shift: .5rem; }
