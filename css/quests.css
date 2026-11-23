@@ -151,19 +151,13 @@
 .board__deco { position: absolute; z-index: 2; height: auto; pointer-events: none; filter: drop-shadow(1px 3px 3px rgb(41 28 18 / .2)); }
 .board__deco--coffee { width: 15rem; top: -4rem; left: 22%; z-index: 0; opacity: .7; filter: none; rotate: 30deg; }
 .board__deco--clip { width: 3.5rem; top: -1.5rem; left: 2%; rotate: -18deg; z-index: 6; }
-.board__deco--charm { width: 7rem; top: -2.2rem; right: 6%; rotate: 8deg; z-index: 6; }
-.board__deco--sparkles { width: 4.5rem; top: 26%; right: -1.5%; }
 .board__deco--button-star { width: 3.75rem; top: 62%; left: 30%; rotate: -12deg; z-index: 6; }
 .board__deco--star-m { width: 3rem; top: 8%; left: 33%; rotate: 18deg; }
 .board__deco--star-b { width: 1.6rem; top: 14%; right: 30%; rotate: -10deg; }
-.board__deco--star-s { width: 1.5rem; top: 72%; right: 31%; rotate: 25deg; }
 .board__deco--flower { width: 4.5rem; top: 78%; left: -2%; rotate: 15deg; }
 
 .board__doodle { position: absolute; z-index: 2; height: auto; overflow: visible; pointer-events: none; fill: none; stroke: var(--color-brick); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .board__doodle--swirl { width: 7rem; top: 4%; left: 9%; stroke: #4c7bd9; rotate: -8deg; }
-.board__doodle--stars { width: 5.5rem; top: 2%; right: 18%; stroke: #e0a321; }
-.board__doodle--arrow { width: 8rem; top: 58%; right: 25%; rotate: 8deg; }
-.board__doodle--underline { width: 9rem; top: 86%; left: 40%; stroke: #e57ab5; }
 
 /* ---------- empty / error ---------- */
 .board__message { grid-column: 1; display: grid; gap: .6rem; justify-items: start; padding: 1.5rem; background: #fbfaf6; rotate: -2deg; box-shadow: 0 12px 26px rgb(41 28 18 / .14); }
@@ -181,8 +175,7 @@
   .board__quests::before { display: none; }
   .polaroid { --shift: 0rem !important; }
   .polaroid:nth-child(1), .polaroid:nth-child(2) { grid-row: auto; margin-top: 0; }
-  .board__deco--button-star, .board__deco--sparkles, .board__deco--flower, .board__deco--star-b, .board__deco--star-s,
-  .board__doodle--arrow, .board__doodle--underline, .board__deco--coffee { display: none; }
+  .board__deco--button-star, .board__deco--flower, .board__deco--star-b, .board__deco--coffee { display: none; }
   .board__note-cardboard { left: -4%; width: 108%; }
 }
 

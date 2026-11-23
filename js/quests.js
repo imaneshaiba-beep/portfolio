@@ -112,9 +112,9 @@ function animateBoard(cards) {
 function showMessage(title, hint, retry) {
   const card = document.createElement("li");
   card.className = "board__message";
-  const t = document.createElement("p"); t.textContent = title;
+  const titleEl = document.createElement("p"); titleEl.textContent = title;
   const h = document.createElement("p"); h.className = "board__message-hint"; h.textContent = hint;
-  card.append(t, h);
+  card.append(titleEl, h);
   if (retry) {
     const b = document.createElement("button");
     b.type = "button"; b.className = "works__retry"; b.textContent = t("works.retry");
